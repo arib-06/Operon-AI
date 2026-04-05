@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DustIQ – AI Solar Intelligence",
+  title: "Operon – AI Solar Intelligence",
   description: "Advanced energy loss and solar health dashboard.",
 };
 

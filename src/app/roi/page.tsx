@@ -26,7 +26,7 @@ export default function ROICalculator() {
         points.push({
             year: `Year ${i}`,
             "Manual Schedule": Math.floor(manualRev),
-            "DustIQ Autonomous": Math.floor(autoRev),
+            "Operon Autonomous": Math.floor(autoRev),
             "Net Profit": Math.floor(autoRev - manualRev)
         });
     }
@@ -131,7 +131,7 @@ export default function ROICalculator() {
                             {/* Manual Line in subtle red */}
                             <Line type="monotone" dataKey="Manual Schedule" stroke="#ef4444" strokeWidth={2} strokeDasharray="4 4" dot={{ r: 4, fill: '#ef4444' }} activeDot={{ r: 6 }} />
                             {/* Auto Line in Bright Gold */}
-                            <Line type="monotone" dataKey="DustIQ Autonomous" stroke="#fbbf24" strokeWidth={3} dot={{ r: 5, fill: '#fbbf24', strokeWidth: 2, stroke: '#010a05' }} activeDot={{ r: 8, fill: '#fbbf24' }} />
+                            <Line type="monotone" dataKey="Operon Autonomous" stroke="#fbbf24" strokeWidth={3} dot={{ r: 5, fill: '#fbbf24', strokeWidth: 2, stroke: '#010a05' }} activeDot={{ r: 8, fill: '#fbbf24' }} />
                         </LineChart>
                     </ResponsiveContainer>
                 </div>

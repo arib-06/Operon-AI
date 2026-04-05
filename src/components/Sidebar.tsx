@@ -85,7 +85,7 @@ export default function Sidebar() {
             <BrainCircuit className="text-emerald-400 size-5" />
           </div>
           <div>
-            <h1 className="text-emerald-50 font-bold tracking-wider text-sm">DustIQ <span className="text-amber-500 tracking-normal ml-0.5">AI</span></h1>
+            <h1 className="text-emerald-50 font-bold tracking-wider text-sm">Operon <span className="text-amber-500 tracking-normal ml-0.5">AI</span></h1>
             <p className="text-[10px] text-emerald-500/70 tracking-widest uppercase mt-0.5">Autonomous Operator</p>
           </div>
         </div>

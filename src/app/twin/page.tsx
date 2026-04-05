@@ -108,7 +108,7 @@ export default function GeospatialTwinPage() {
         
         {/* Header echoing Ontora */}
         <header className="flex items-center space-x-2 text-xs text-emerald-500/70 mb-4 px-2 tracking-widest uppercase">
-           <span className="font-bold text-emerald-400">DustIQ</span>
+           <span className="font-bold text-emerald-400">Operon</span>
            <span>•</span>
            <span className="text-emerald-500">Sakaka Digital Twin</span>
            <span className="ml-auto flex items-center bg-[#010a05]/80 px-3 py-1.5 rounded-md border border-emerald-900/50 shadow-inner">
