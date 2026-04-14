@@ -45,7 +45,7 @@ export default function SecurityGovernancePage() {
         
         {/* Header echoing Ontora */}
         <header className="flex items-center space-x-2 text-xs text-slate-500 mb-6">
-           <span className="font-bold text-slate-300">DustIQ AI</span>
+           <span className="font-bold text-slate-300">Operon AI</span>
            <span>•</span>
            <span className="text-slate-400">Security & Governance</span>
            <span className="ml-auto flex items-center bg-[#070b14] px-3 py-1.5 rounded-md border border-slate-800 shadow-inner">

@@ -323,7 +323,7 @@ export default function Dashboard() {
                                <div className="size-2.5 rounded-full bg-emerald-500 border border-emerald-900" />
                             </div>
                             <div className="pt-6 space-y-2.5 leading-relaxed opacity-90">
-                               <p className="text-emerald-700">dustiq-os@neom:~# invoke dispatcher {"-v"}</p>
+                               <p className="text-emerald-700">operon-os@neom:~# invoke dispatcher {"-v"}</p>
                                <p className="text-emerald-400">{'>'} Analyzing ROI matrices...</p>
                                <p className="text-emerald-400 flex"><span className="mr-2">{'>'}</span> <span>Committing scheduled task <br/> [{analysis.automation.status.toUpperCase()}]</span></p>
                                <p className="border-t border-emerald-900/50 pt-3 mt-3 text-emerald-300 font-bold tracking-tight">

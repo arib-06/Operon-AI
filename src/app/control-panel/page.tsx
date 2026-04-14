@@ -56,7 +56,7 @@ export default function ControlPanelPage() {
         
         {/* Header echoing Ontora */}
         <header className="flex items-center space-x-2 text-xs text-slate-500 mb-6">
-           <span className="font-bold text-slate-300">DustIQ AI</span>
+           <span className="font-bold text-slate-300">Operon AI</span>
            <span>•</span>
            <span className="text-slate-400">Control Panel</span>
            <span className="ml-auto flex items-center bg-[#070b14] px-3 py-1.5 rounded-md border border-slate-800 shadow-inner">
@@ -79,7 +79,7 @@ export default function ControlPanelPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                     <ServiceCard icon={Database} title="Sensor API Gateway" status="Operational" ping={12} colorClass="text-emerald-500" dotColor="#10b981" />
                     <ServiceCard icon={Wifi} title="Drone Telemetry Link" status="Degraded" ping={184} colorClass="text-amber-500" dotColor="#f59e0b" />
-                    <ServiceCard icon={Cpu} title="DustIQ Core Model" status="Operational" ping={45} colorClass="text-emerald-500" dotColor="#10b981" />
+                    <ServiceCard icon={Cpu} title="Operon Core Model" status="Operational" ping={45} colorClass="text-emerald-500" dotColor="#10b981" />
                     
                     <ServiceCard icon={RefreshCw} title="Weather NCM Sync" status="Degraded" colorClass="text-amber-500" dotColor="#f59e0b" />
                     <ServiceCard icon={Plug} title="Inverter Modbus TCP" status="Offline" colorClass="text-rose-500" dotColor="#f43f5e" />
