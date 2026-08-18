@@ -29,13 +29,13 @@ export default function CursorGlow() {
   return (
     <>
       <div 
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-emerald-400/50 pointer-events-none z-[100] transition-transform duration-100 ease-out mix-blend-screen"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-white/30 pointer-events-none z-[100] transition-transform duration-100 ease-out mix-blend-screen"
         style={{
           transform: `translate(${position.x - 16}px, ${position.y - 16}px) scale(${isPointer ? 1.5 : 1})`,
         }}
       />
       <div 
-        className="fixed top-0 left-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-[80px] pointer-events-none z-[0] transition-transform duration-300 ease-out"
+        className="fixed top-0 left-0 w-96 h-96 bg-white/[0.03] rounded-full blur-[80px] pointer-events-none z-[0] transition-transform duration-300 ease-out"
         style={{
           transform: `translate(${position.x - 192}px, ${position.y - 192}px)`,
         }}

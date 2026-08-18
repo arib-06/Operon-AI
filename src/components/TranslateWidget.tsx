@@ -51,13 +51,13 @@ export default function TranslateWidget() {
       {/* Hidden google translate anchor */}
       <div id="google_translate_element" className="hidden" />
 
-      {/* Styled custom toggle button fixed at top right */}
+      {/* Styled custom toggle button */}
       <button
         onClick={handleToggle}
-        className="fixed top-4 right-6 z-[200] flex items-center space-x-2 bg-[#010a05]/95 backdrop-blur-xl border border-emerald-900/50 shadow-[0_0_20px_rgba(16,185,129,0.2)] px-4 py-2 rounded-full text-xs font-bold text-emerald-400 font-mono tracking-widest uppercase hover:scale-105 hover:bg-emerald-950/40 transition-all cursor-pointer"
+        className="flex items-center space-x-2 bg-white/[0.04] backdrop-blur-md border border-white/[0.08] shadow-[0_4px_12px_rgba(0,0,0,0.1)] px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-200 hover:scale-105 hover:bg-white/[0.08] hover:border-white/[0.15] transition-all cursor-pointer"
       >
-        <Globe className="size-4 animate-pulse" />
-        <span>{isArabic ? "ENG (English)" : "عربي (Arabic)"}</span>
+        <Globe className="size-3.5 text-slate-400" />
+        <span className="font-sans font-medium tracking-wide">{isArabic ? "English" : "عربي (Arabic)"}</span>
       </button>
 
       {/* Hide the google translate top bar that appears automatically */}

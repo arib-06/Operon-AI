@@ -1,10 +1,11 @@
 "use client";
 
 import { AlertTriangle, ShieldAlert, ThermometerSun, Database, ArrowRight } from "lucide-react";
+import TranslateWidget from "@/components/TranslateWidget";
 
 function TopCard({ title, value, subtitle, dotColor, borderClass }: any) {
   return (
-    <div className={`bg-[#0A1120] border rounded-lg p-4 flex flex-col justify-between h-28 relative overflow-hidden flex-1 ${borderClass}`}>
+    <div className={`bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg p-4 flex flex-col justify-between h-28 relative overflow-hidden flex-1 ${borderClass}`}>
        <div className="absolute top-4 right-4 size-2 rounded-full" style={{ backgroundColor: dotColor }} />
        <div>
          <div className="text-xs font-semibold text-slate-400 tracking-wider flex items-center space-x-2">
@@ -35,7 +36,7 @@ function HorizBar({ label, value, max, color }: any) {
 
 const TABLE_DATA = [
     { zone: "NEOM Sector 7", type: "Thermal", region: "Tabuk", severity: "CRITICAL", score: 99, coords: "28.08°, 34.95°" },
-    { zone: "Sakaka Array 2", type: "Dust Storm", region: "Al Jawf", severity: "CRITICAL", score: 98, coords: "29.96°, 40.19°" },
+    { zone: "Sakaka Array 2", type: "Operon Storm", region: "Al Jawf", severity: "CRITICAL", score: 98, coords: "29.96°, 40.19°" },
     { zone: "Sudair PV Block A", type: "Component", region: "Riyadh", severity: "CRITICAL", score: 98, coords: "25.75°, 45.58°" },
     { zone: "Jeddah Port Roof", type: "Humidity", region: "Makkah", severity: "CRITICAL", score: 95, coords: "21.48°, 39.19°" },
     { zone: "NEOM Sector 4", type: "Thermal", region: "Tabuk", severity: "HIGH", score: 87, coords: "28.11°, 34.90°" },
@@ -43,33 +44,38 @@ const TABLE_DATA = [
 
 export default function GeospatialIntelPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-[#02050E] text-slate-300 font-sans p-4 md:p-6 lg:p-6 max-w-[1600px] mx-auto overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-transparent text-slate-300 font-sans p-4 md:p-6 lg:p-6 max-w-[1600px] mx-auto overflow-hidden">
         
         {/* Header echoing Ontora */}
-        <header className="flex items-center space-x-2 text-xs text-slate-500 mb-6">
-           <span className="font-bold text-slate-300">DustIQ</span>
-           <span>•</span>
-           <span className="text-slate-400">Array Threat Hotspots</span>
-           <span className="ml-auto flex items-center bg-[#070b14] px-3 py-1.5 rounded-md border border-slate-800 shadow-inner">
-               <div className="size-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,1)] animate-pulse mr-2" />
-               <span className="text-emerald-500 font-mono font-bold tracking-widest uppercase">Live Tracking</span>
-           </span>
+        <header className="flex items-center justify-between text-xs text-slate-500 mb-6 font-sans">
+           <div className="flex items-center space-x-2">
+              <span className="font-bold text-slate-300">Operon</span>
+              <span>•</span>
+              <span className="text-slate-400">Array Threat Hotspots</span>
+           </div>
+           <div className="flex items-center space-x-3">
+              <TranslateWidget />
+              <span className="flex items-center bg-white/[0.04] px-3 py-1.5 rounded-md border border-white/[0.08] shadow-inner">
+                  <div className="size-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)] animate-pulse mr-2" />
+                  <span className="text-slate-300 font-sans font-semibold tracking-wide uppercase">Live Tracking</span>
+              </span>
+           </div>
         </header>
 
         {/* Top Stats Row */}
         <div className="flex flex-wrap md:flex-nowrap gap-4 mb-6">
-            <TopCard title="Critical" value="16" subtitle="Immediate intervention" dotColor="#f43f5e" borderClass="border-rose-900/50 shadow-[0_0_15px_rgba(244,63,94,0.1)]" />
-            <TopCard title="High Severity" value="40" subtitle="Elevated loss threat" dotColor="#f59e0b" borderClass="border-amber-900/50" />
-            <TopCard title="Array Alerts" value="85" subtitle="Sub-optimal regions" dotColor="#f97316" borderClass="border-orange-900/50" />
-            <TopCard title="Incidents (7d)" value="154" subtitle="Recent dispatches" dotColor="#8b5cf6" borderClass="border-purple-900/50" />
-            <TopCard title="Econ Regions" value="4" subtitle="Monitored arrays" dotColor="#10b981" borderClass="border-emerald-900/50" />
+            <TopCard title="Critical" value="16" subtitle="Immediate intervention" dotColor="#f43f5e" borderClass="border-rose-500/20 shadow-[0_0_15px_rgba(244,63,94,0.05)]" />
+            <TopCard title="High Severity" value="40" subtitle="Elevated loss threat" dotColor="#f59e0b" borderClass="border-amber-500/20" />
+            <TopCard title="Array Alerts" value="85" subtitle="Sub-optimal regions" dotColor="#f97316" borderClass="border-orange-500/20" />
+            <TopCard title="Incidents (7d)" value="154" subtitle="Recent dispatches" dotColor="#c084fc" borderClass="border-purple-500/20" />
+            <TopCard title="Econ Regions" value="4" subtitle="Monitored arrays" dotColor="#38bdf8" borderClass="border-white/[0.08]" />
         </div>
 
         {/* Middle Charts Row */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
             
             {/* Severity Distribution */}
-            <div className="bg-[#0A1120] border border-slate-800 rounded-lg p-5">
+            <div className="widget-hover rounded-lg p-5">
                 <h3 className="text-xs font-semibold text-slate-400 mb-6">Severity Distribution</h3>
                 <div className="flex items-end justify-between h-32 px-4 gap-4">
                     {/* Bars */}
@@ -97,7 +103,7 @@ export default function GeospatialIntelPage() {
             </div>
 
             {/* Hotspots by Region */}
-            <div className="bg-[#0A1120] border border-slate-800 rounded-lg p-5 flex flex-col justify-center">
+            <div className="widget-hover rounded-lg p-5 flex flex-col justify-center">
                 <h3 className="text-xs font-semibold text-slate-400 mb-6">Hotspots by Region</h3>
                 <div className="flex-1">
                     <HorizBar label="NEOM Area" value={48} max={60} color="#06b6d4" />
@@ -109,7 +115,7 @@ export default function GeospatialIntelPage() {
             </div>
 
             {/* Incident Types */}
-            <div className="bg-[#0A1120] border border-slate-800 rounded-lg p-5">
+            <div className="widget-hover rounded-lg p-5">
                 <h3 className="text-xs font-semibold text-slate-400 mb-4">Incident Types</h3>
                 <div className="flex items-center space-x-6 h-full pb-4">
                     {/* Circular SVG simulating donut */}
@@ -120,7 +126,7 @@ export default function GeospatialIntelPage() {
                     </svg>
                     <div className="flex-1 space-y-2">
                         <div className="flex justify-between text-[10px] items-center">
-                            <span className="flex items-center"><div className="size-2 rounded-full bg-rose-500 mr-2"/> Dust Accumulation</span>
+                            <span className="flex items-center"><div className="size-2 rounded-full bg-rose-500 mr-2"/> Operon Accumulation</span>
                             <span className="font-mono text-slate-400">203</span>
                         </div>
                         <div className="flex justify-between text-[10px] items-center">
@@ -141,19 +147,18 @@ export default function GeospatialIntelPage() {
 
         </div>
 
-        {/* Filters */}
-        <div className="flex flex-wrap items-center gap-3 text-xs mb-4">
+        <div className="flex flex-wrap items-center gap-3 text-xs mb-4 font-sans">
             <span className="text-slate-500 ml-2">Filter:</span>
-            <div className="flex space-x-2 border border-slate-800 rounded-full p-1 bg-[#0A1120]">
-                <button className="px-3 py-1 rounded-full bg-cyan-900 text-cyan-400 font-semibold border border-cyan-500/50">All</button>
+            <div className="flex space-x-2 border border-white/[0.08] rounded-full p-1 bg-white/[0.01]">
+                <button className="px-3 py-1 rounded-full bg-white/[0.08] text-white font-semibold border border-white/[0.1]">All</button>
                 <button className="px-3 py-1 rounded-full text-slate-400 hover:text-slate-200">Critical</button>
                 <button className="px-3 py-1 rounded-full text-slate-400 hover:text-slate-200">High</button>
                 <button className="px-3 py-1 rounded-full text-slate-400 hover:text-slate-200">Medium</button>
             </div>
             
-            <div className="flex space-x-2 border border-slate-800 rounded-full p-1 bg-[#0A1120]">
-                <button className="px-3 py-1 rounded-full bg-cyan-900 text-cyan-400 font-semibold border border-cyan-500/50">all types</button>
-                <button className="px-3 py-1 rounded-full text-slate-400 hover:text-slate-200">Dust</button>
+            <div className="flex space-x-2 border border-white/[0.08] rounded-full p-1 bg-white/[0.01]">
+                <button className="px-3 py-1 rounded-full bg-white/[0.08] text-white font-semibold border border-white/[0.1]">all types</button>
+                <button className="px-3 py-1 rounded-full text-slate-400 hover:text-slate-200">Operon</button>
                 <button className="px-3 py-1 rounded-full text-slate-400 hover:text-slate-200">Thermal</button>
                 <button className="px-3 py-1 rounded-full text-slate-400 hover:text-slate-200">Component</button>
                 <button className="px-3 py-1 rounded-full text-slate-400 hover:text-slate-200">Network</button>
@@ -161,15 +166,15 @@ export default function GeospatialIntelPage() {
         </div>
 
         {/* Table */}
-        <div className="bg-[#0A1120] border border-slate-800 rounded-lg overflow-hidden flex-1 shadow-2xl">
-            <div className="flex justify-between text-[10px] text-slate-500 font-bold uppercase tracking-widest p-4 border-b border-slate-800 bg-slate-900/50">
+        <div className="widget-hover rounded-lg overflow-hidden flex-1 shadow-xl">
+            <div className="flex justify-between text-[10px] text-slate-500 font-bold uppercase tracking-widest p-4 border-b border-white/[0.06] bg-white/[0.01]">
                 <span>Array & Threat Hotspots</span>
                 <span>215 zones</span>
             </div>
             <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
                     <thead>
-                        <tr className="border-b border-slate-800/50 text-slate-500 text-xs text-center border-b">
+                        <tr className="border-b border-white/[0.06] text-slate-500 text-xs text-center border-b">
                             <th className="p-4 font-normal text-left">Zone</th>
                             <th className="p-4 font-normal">Type</th>
                             <th className="p-4 font-normal">Region</th>
@@ -188,7 +193,7 @@ export default function GeospatialIntelPage() {
                                     </div>
                                 </td>
                                 <td className="p-4">
-                                    <span className="px-2 py-1 rounded text-xs bg-slate-800 border border-slate-700 text-slate-300">
+                                    <span className="px-2 py-1 rounded text-xs bg-white/[0.02] border border-white/[0.08] text-slate-300">
                                         {row.type}
                                     </span>
                                 </td>

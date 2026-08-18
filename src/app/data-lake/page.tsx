@@ -1,168 +1,489 @@
 "use client";
 
-import { Database, Folder, ShieldCheck, DollarSign, Activity, Maximize2 } from "lucide-react";
-import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer } from "recharts";
-
-function MiniCard({ icon: Icon, title, value, subtitle, highlightClass }: any) {
-    return (
-        <div className="bg-[#0A1120] border border-slate-800 rounded-lg p-3 flex flex-col justify-between h-24 shadow-lg flex-1">
-            <div className="flex items-center space-x-2 text-xs text-slate-400 font-semibold uppercase tracking-widest mb-1">
-                {Icon && <Icon className={`size-3 ${highlightClass}`} />}
-                <span>{title}</span>
-            </div>
-            <div className={`text-2xl font-bold font-mono tracking-tighter leading-none ${highlightClass}`}>
-                {value}
-            </div>
-            <div className="text-[10px] text-slate-600 mt-1">{subtitle}</div>
-        </div>
-    );
-}
-
-const COST_DATA = [
-    { time: "0:00", cost: 0.0025 }, { time: "2:00", cost: 0.0080 },
-    { time: "4:00", cost: 0.0060 }, { time: "6:00", cost: 0.0040 },
-    { time: "8:00", cost: 0.0025 }, { time: "10:00", cost: 0.0050 },
-    { time: "12:00", cost: 0.0020 }, { time: "14:00", cost: 0.0075 },
-    { time: "16:00", cost: 0.0100 }, { time: "18:00", cost: 0.0030 },
-    { time: "20:00", cost: 0.0060 }, { time: "22:00", cost: 0.0025 },
-    { time: "24:00", cost: 0.0055 },
-];
+import { useState } from "react";
+import { 
+  Sun, Lock, Leaf, DollarSign, Thermometer, Battery, 
+  Activity, Globe, Target, Maximize2, Plus, Minus, RotateCw, AlertTriangle
+} from "lucide-react";
+import Image from "next/image";
+import TranslateWidget from "@/components/TranslateWidget";
 
 export default function DataLakePage() {
+  const [activeAlerts, setActiveAlerts] = useState(0);
+  const [panelState, setPanelState] = useState(true); // true = active, false = off
+  const [energyGenerated, setEnergyGenerated] = useState(847.3);
+
+  const handleTogglePanel = () => {
+    setPanelState(!panelState);
+  };
+
+  const handleRefreshEnergy = () => {
+    setEnergyGenerated(prev => parseFloat((prev + Math.random() * 2).toFixed(1)));
+  };
+
   return (
-    <div className="flex flex-col min-h-screen bg-[#02050E] text-slate-300 font-sans p-4 md:p-6 lg:p-6 max-w-[1600px] mx-auto overflow-hidden">
+    <div className="min-h-screen bg-[#0e0f11] text-slate-300 font-sans p-4 md:p-6 lg:p-6 max-w-[1700px] mx-auto space-y-6">
+      
+      {/* Top Header */}
+      <header className="flex items-center justify-between text-xs text-slate-500 font-sans px-2 uppercase tracking-widest border-b border-white/[0.04] pb-4">
+         <div className="flex items-center space-x-2">
+            <span className="font-bold text-slate-300">Operon AI</span>
+            <span>•</span>
+            <span className="text-slate-400">Soleil Solar Telemetry Data Lake</span>
+         </div>
+         <div className="flex items-center space-x-3">
+            <TranslateWidget />
+            <span className="flex items-center bg-white/[0.03] px-3 py-1.5 rounded-md border border-white/[0.08] shadow-inner">
+                <div className="size-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)] animate-pulse mr-2" />
+                <span className="text-slate-300 font-sans font-semibold tracking-wide uppercase">Telemetry Grid Connected</span>
+            </span>
+         </div>
+      </header>
+
+      {/* Main Grid Wrapper: Left sidebar + Right 3D Visualizer */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         
-        {/* Header echoing Ontora */}
-        <header className="flex items-center space-x-2 text-xs text-slate-500 mb-6">
-           <span className="font-bold text-slate-300">DustIQ AI</span>
-           <span>•</span>
-           <span className="text-slate-400">Solar Telemetry Data Lake</span>
-           <span className="ml-auto flex items-center bg-[#070b14] px-3 py-1.5 rounded-md border border-slate-800 shadow-inner">
-               <div className="size-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,1)] animate-pulse mr-2" />
-               <span className="text-emerald-500 font-mono font-bold tracking-widest uppercase">Live Sink</span>
-           </span>
-        </header>
+        {/* Left Section: Soleil Headquarter Farm details */}
+        <div className="lg:col-span-1 bg-[#18191b] border border-white/[0.06] rounded-xl p-5 flex flex-col justify-between shadow-2xl relative">
+          <div className="space-y-6">
+            {/* Header info */}
+            <div className="flex justify-between items-start border-b border-white/[0.06] pb-4">
+              <div>
+                <h2 className="text-base font-bold text-white tracking-tight leading-tight">Soleil Headquarter Farm</h2>
+                <div className="text-[10px] text-slate-500 mt-1 uppercase tracking-wider">Batu, Malang • 6 active fields</div>
+              </div>
+              <div className="text-right">
+                <div className="text-lg font-bold text-slate-100 font-mono">120 <span className="text-xs text-slate-400 font-sans">kWp</span></div>
+                <div className="text-[9px] text-slate-500 mt-0.5">Last updated 07:45</div>
+              </div>
+            </div>
 
-        {/* Top Stats Row */}
-        <div className="flex flex-wrap md:flex-nowrap gap-4 mb-6">
-            <MiniCard icon={Database} title="Total Size" value="842.4 GB" subtitle="18 arrays tracked" highlightClass="text-purple-400" />
-            <MiniCard icon={Folder} title="Total Records" value="1.2B" subtitle="Indexed telemetry" highlightClass="text-cyan-400" />
-            <MiniCard icon={ShieldCheck} title="Avg Quality" value="98.2%" subtitle="All datasets" highlightClass="text-emerald-400" />
-            <MiniCard icon={DollarSign} title="Cost / 24h" value="SAR 45.00" subtitle="Ingestion units" highlightClass="text-amber-500 glow-warning" />
-            <MiniCard icon={Activity} title="Queries (24h)" value="142" subtitle="Avg 1.2s u/q" highlightClass="text-blue-400" />
-            <MiniCard icon={Maximize2} title="Views Active" value="12" subtitle="Materialized" highlightClass="text-pink-400" />
+            {/* Telemetry counts */}
+            <div className="space-y-3.5 text-xs">
+              <div className="flex justify-between items-center">
+                <span className="text-slate-400 font-medium">Active Inverters</span>
+                <span className="font-mono text-white font-bold">6 / 6 <span className="text-[10px] text-slate-400 font-sans font-normal ml-1">Online</span></span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-slate-400 font-medium">Panels Reporting</span>
+                <span className="font-mono text-white font-bold">96 / 96 <span className="text-[10px] text-slate-400 font-sans font-normal ml-1">Panels</span></span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-slate-400 font-medium">Active Alerts</span>
+                <span className="font-mono text-white font-bold">{activeAlerts} <span className="text-[10px] text-slate-400 font-sans font-normal ml-1">Alerts</span></span>
+              </div>
+            </div>
+
+            {/* Power Flow Section */}
+            <div className="space-y-3 pt-2">
+              <h3 className="text-xs font-semibold text-slate-400 flex items-center justify-between uppercase tracking-wider">
+                <span>Power Flow</span>
+                <span className="size-3.5 rounded-full border border-white/20 flex items-center justify-center text-[9px] font-mono text-slate-500">i</span>
+              </h3>
+              <div className="grid grid-cols-3 gap-3">
+                <div className="bg-white/[0.01] border border-white/[0.04] rounded p-2 text-center">
+                  <div className="text-[9px] text-slate-500 font-mono uppercase">Solar Array</div>
+                  <div className="text-xs font-bold text-white font-mono mt-1">12.4 <span className="text-[9px] text-slate-500 font-sans font-normal">MW</span></div>
+                  <div className="w-full h-1 bg-white/[0.03] mt-2 rounded overflow-hidden">
+                    <div className="w-2/3 h-full bg-slate-400" />
+                  </div>
+                </div>
+                <div className="bg-white/[0.01] border border-white/[0.04] rounded p-2 text-center">
+                  <div className="text-[9px] text-slate-500 font-mono uppercase">Connection</div>
+                  <div className="text-xs font-bold text-white mt-1">Stable</div>
+                  <div className="w-full h-1 bg-white/[0.03] mt-2 rounded overflow-hidden">
+                    <div className="w-full h-full bg-slate-400" />
+                  </div>
+                </div>
+                <div className="bg-white/[0.01] border border-white/[0.04] rounded p-2 text-center">
+                  <div className="text-[9px] text-slate-500 font-mono uppercase">Battery</div>
+                  <div className="text-xs font-bold text-white font-mono mt-1">87%</div>
+                  <div className="w-full h-1 bg-white/[0.03] mt-2 rounded overflow-hidden">
+                    <div className="w-[87%] h-full bg-slate-400" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* AI Summary Bottom Box */}
+          <div className="mt-8 bg-white/[0.02] border border-white/[0.06] rounded-xl p-4 space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="text-[10px] text-slate-400 font-mono uppercase">AI Summary</span>
+              <span className="px-2 py-0.5 rounded text-[8px] font-bold text-emerald-400 border border-emerald-500/20 bg-emerald-950/20 uppercase tracking-wider">Operation Normal</span>
+            </div>
+            <p className="text-xs text-slate-305 leading-relaxed font-sans">
+              Energy output, efficiency, and thermal conditions are stable across all active fields.
+            </p>
+            <div className="flex justify-between items-center text-[9px] text-slate-500 border-t border-white/[0.04] pt-2 font-mono uppercase">
+              <span>High <span className="text-[8px] text-slate-650 block font-sans">Stability</span></span>
+              <span>Low <span className="text-[8px] text-slate-650 block font-sans">Efficiency Risk</span></span>
+              <span>None <span className="text-[8px] text-slate-650 block font-sans">Maintenance</span></span>
+            </div>
+          </div>
         </div>
 
-        {/* Middle Charts Row */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+        {/* Right Section: 3D panel canvas */}
+        <div className="lg:col-span-3 bg-[#18191b] border border-white/[0.06] rounded-xl overflow-hidden shadow-2xl relative min-h-[500px] flex flex-col justify-between">
+          {/* Top text overlay */}
+          <div className="absolute top-5 left-6 z-10">
+            <h2 className="text-base font-bold text-white tracking-tight leading-tight">Soleil Headquarter Cubiq 1</h2>
+            <p className="text-[10px] text-slate-500 mt-0.5 font-mono uppercase tracking-wider font-semibold">SOL001-SOL015</p>
+          </div>
+
+          {/* Isometric 3D Render Image as canvas background */}
+          <div className="absolute inset-0 w-full h-full flex items-center justify-center p-8 bg-[#18191b]">
+            <div className="relative w-full h-full max-w-[650px] aspect-square opacity-95">
+              <Image 
+                src="/3d_solar_panel_array.jpg" 
+                alt="3D Solar Panel Array" 
+                fill 
+                className="object-contain rounded-lg"
+                priority
+              />
+              
+              {/* Highlight Nodes / Target Dots over panel coordinates */}
+              <div className="absolute top-[28%] left-[54%] w-3 h-3 bg-white rounded-full border border-slate-900 shadow-lg animate-ping" />
+              <div className="absolute top-[28%] left-[54%] w-2 h-2 bg-white rounded-full border border-slate-900 shadow-lg" />
+              
+              <div className="absolute top-[38%] left-[44%] w-3 h-3 bg-white rounded-full border border-slate-900 shadow-lg animate-ping" />
+              <div className="absolute top-[38%] left-[44%] w-2 h-2 bg-white rounded-full border border-slate-900 shadow-lg" />
+
+              <div className="absolute top-[48%] left-[34%] w-3 h-3 bg-white rounded-full border border-slate-900 shadow-lg animate-ping" />
+              <div className="absolute top-[48%] left-[34%] w-2 h-2 bg-white rounded-full border border-slate-900 shadow-lg" />
+              
+              <div className="absolute top-[20%] left-[64%] w-3 h-3 bg-white rounded-full border border-slate-900 shadow-lg animate-ping" />
+              <div className="absolute top-[20%] left-[64%] w-2 h-2 bg-white rounded-full border border-slate-900 shadow-lg" />
+
+              <div className="absolute top-[33%] left-[73%] w-3 h-3 bg-white rounded-full border border-slate-900 shadow-lg animate-ping" />
+              <div className="absolute top-[33%] left-[73%] w-2 h-2 bg-white rounded-full border border-slate-900 shadow-lg" />
+
+              <div className="absolute top-[44%] left-[61%] w-3 h-3 bg-white rounded-full border border-slate-900 shadow-lg animate-ping" />
+              <div className="absolute top-[44%] left-[61%] w-2 h-2 bg-white rounded-full border border-slate-900 shadow-lg" />
+            </div>
+          </div>
+
+          {/* Right Floating Dashboard Box Panel 006 */}
+          <div className="absolute top-5 right-6 z-10 w-72 bg-[#1e1f22]/95 backdrop-blur-xl border border-white/[0.08] rounded-xl p-4.5 shadow-2xl space-y-4">
+            <div className="flex justify-between items-start border-b border-white/[0.06] pb-3">
+              <div>
+                <h3 className="text-xs font-bold text-white font-mono">Panel 006</h3>
+                <div className="text-[9px] text-slate-500 mt-0.5 font-sans">Array B • 12 Panels</div>
+              </div>
+              <div className="text-right">
+                <div className="text-sm font-bold text-emerald-400 font-mono">4.92 <span className="text-[9px] text-slate-400 font-sans font-normal ml-0.5">kW</span></div>
+                <div className="text-[8px] text-slate-500 mt-0.5 font-mono">Last updated 07:45</div>
+              </div>
+            </div>
+
+            {/* Metrics */}
+            <div className="grid grid-cols-2 gap-3 text-[11px] text-slate-200">
+              <div className="flex items-center space-x-2.5">
+                <div className="p-1.5 bg-white/[0.03] border border-white/[0.06] rounded">
+                  <Activity className="size-3.5 text-slate-350" />
+                </div>
+                <div>
+                  <div className="text-slate-100 font-bold font-mono">91.4%</div>
+                  <div className="text-[8px] text-slate-550 uppercase font-sans">Efficiency</div>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2.5">
+                <div className="p-1.5 bg-white/[0.03] border border-white/[0.06] rounded">
+                  <Thermometer className="size-3.5 text-slate-355" />
+                </div>
+                <div>
+                  <div className="text-slate-100 font-bold font-mono">42°C</div>
+                  <div className="text-[8px] text-slate-550 uppercase font-sans">Temperature</div>
+                </div>
+              </div>
+            </div>
+
+            {/* AI Summary Box */}
+            <div className="bg-[#18191b] border border-white/[0.05] rounded-lg p-3 text-[11px]">
+              <div className="text-slate-405 uppercase tracking-widest text-[8px] font-mono mb-1 font-bold">AI Summary</div>
+              <p className="text-slate-300 leading-relaxed font-sans">
+                Slight efficiency drop likely caused by surface dust accumulation.
+              </p>
+            </div>
+
+            {/* Buttons */}
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <button 
+                onClick={handleTogglePanel}
+                className={`py-2 rounded-lg font-bold uppercase tracking-wider text-[10px] border transition-all cursor-pointer ${
+                  panelState 
+                    ? "bg-[#18191b] text-slate-200 border-white/[0.08] hover:bg-[#202124]" 
+                    : "bg-emerald-500 text-slate-900 border-emerald-400 font-black hover:bg-emerald-400"
+                }`}
+              >
+                {panelState ? "Turn Off" : "Turn On"}
+              </button>
+              <button 
+                onClick={handleRefreshEnergy}
+                className="py-2 bg-transparent text-slate-300 border border-white/20 hover:bg-white/5 rounded-lg font-bold uppercase tracking-wider text-[10px] transition-all cursor-pointer"
+              >
+                Refresh
+              </button>
+            </div>
+          </div>
+
+          {/* Floating HUD controls bottom-left */}
+          <div className="absolute bottom-5 left-6 z-10 flex space-x-2">
+            <button className="p-2 bg-[#1e1f22]/90 border border-white/[0.08] rounded hover:bg-[#25262a] transition-all text-slate-300 cursor-pointer shadow-lg">
+              <Target className="size-4" />
+            </button>
+            <button className="p-2 bg-[#1e1f22]/90 border border-white/[0.08] rounded hover:bg-[#25262a] transition-all text-slate-300 cursor-pointer shadow-lg">
+              <Globe className="size-4" />
+            </button>
+          </div>
+
+          {/* Floating Zoom HUD controls bottom-right */}
+          <div className="absolute bottom-5 right-6 z-10 flex space-x-2">
+            <button className="p-2 bg-[#1e1f22]/90 border border-white/[0.08] rounded hover:bg-[#25262a] transition-all text-slate-300 cursor-pointer shadow-lg">
+              <Plus className="size-4" />
+            </button>
+            <button className="p-2 bg-[#1e1f22]/90 border border-white/[0.08] rounded hover:bg-[#25262a] transition-all text-slate-300 cursor-pointer shadow-lg">
+              <Minus className="size-4" />
+            </button>
+          </div>
+
+          {/* Layout corner decor border spacer */}
+          <div className="absolute top-0 right-0 w-8 h-8 border-t border-r border-white/10 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-8 h-8 border-b border-l border-white/10 pointer-events-none" />
+        </div>
+
+      </div>
+
+      {/* Bottom Grid: Cards row */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        {/* Card Column 1: Stack of 4 small cards */}
+        <div className="grid grid-cols-2 gap-4">
+          
+          <div className="bg-[#18191b] border border-white/[0.06] rounded-xl p-4 flex flex-col justify-between h-28 relative shadow-lg">
+            <div className="flex justify-between items-start">
+              <div className="text-[10px] text-slate-500 uppercase tracking-widest font-mono font-bold">Energy Generated</div>
+              <Sun className="size-4 text-slate-400" />
+            </div>
+            <div className="space-y-1">
+              <div className="text-xl font-bold text-white font-mono leading-none">25,482 <span className="text-[10px] text-slate-400 font-sans font-normal ml-0.5">kwh</span></div>
+              <div className="text-[9px] text-emerald-400 font-semibold font-mono tracking-tight">+2.6% vs Yesterday</div>
+            </div>
+            <div className="absolute top-2 right-2 text-[9px] text-slate-650 font-mono cursor-help">ⓘ</div>
+          </div>
+
+          <div className="bg-[#18191b] border border-white/[0.06] rounded-xl p-4 flex flex-col justify-between h-28 relative shadow-lg">
+            <div className="flex justify-between items-start">
+              <div className="text-[10px] text-slate-500 uppercase tracking-widest font-mono font-bold">Current Power Output</div>
+              <Lock className="size-4 text-slate-400" />
+            </div>
+            <div className="space-y-1">
+              <div className="text-xl font-bold text-white font-mono leading-none">5.48 <span className="text-[10px] text-slate-400 font-sans font-normal ml-0.5">kW</span></div>
+              <div className="text-[9px] text-emerald-400 font-semibold font-mono tracking-tight">+2.6% vs Yesterday</div>
+            </div>
+            <div className="absolute top-2 right-2 text-[9px] text-slate-650 font-mono cursor-help">ⓘ</div>
+          </div>
+
+          <div className="bg-[#18191b] border border-white/[0.06] rounded-xl p-4 flex flex-col justify-between h-28 relative shadow-lg">
+            <div className="flex justify-between items-start">
+              <div className="text-[10px] text-slate-500 uppercase tracking-widest font-mono font-bold">System Efficiency</div>
+              <Leaf className="size-4 text-slate-400" />
+            </div>
+            <div className="space-y-1">
+              <div className="text-xl font-bold text-white font-mono leading-none">94 <span className="text-[10px] text-slate-400 font-sans font-normal ml-0.5">%</span></div>
+              <div className="text-[9px] text-emerald-400 font-semibold font-mono tracking-tight">+2.6% vs Yesterday</div>
+            </div>
+            <div className="absolute top-2 right-2 text-[9px] text-slate-650 font-mono cursor-help">ⓘ</div>
+          </div>
+
+          <div className="bg-[#18191b] border border-white/[0.06] rounded-xl p-4 flex flex-col justify-between h-28 relative shadow-lg">
+            <div className="flex justify-between items-start">
+              <div className="text-[10px] text-slate-500 uppercase tracking-widest font-mono font-bold">Estimated Revenue</div>
+              <DollarSign className="size-4 text-slate-400" />
+            </div>
+            <div className="space-y-1">
+              <div className="text-xl font-bold text-white font-mono leading-none">$1,250 <span className="text-[10px] text-slate-400 font-sans font-normal ml-0.5 font-sans">/kwh</span></div>
+              <div className="text-[9px] text-emerald-400 font-semibold font-mono tracking-tight">+2.6% vs Yesterday</div>
+            </div>
+            <div className="absolute top-2 right-2 text-[9px] text-slate-650 font-mono cursor-help">ⓘ</div>
+          </div>
+
+        </div>
+
+        {/* Card Column 2: Panel Temperature Monitoring + Gauge */}
+        <div className="bg-[#18191b] border border-white/[0.06] rounded-xl p-5 flex flex-col justify-between shadow-lg relative h-60">
+          <div className="flex justify-between items-start mb-2">
+            <h3 className="text-xs font-bold text-white uppercase tracking-widest font-mono">Panel Temperature Monitoring</h3>
+            <span className="text-[9px] text-slate-600 font-mono">ⓘ</span>
+          </div>
+
+          {/* Row Temperatures */}
+          <div className="flex justify-between items-center text-center mt-1 border-b border-white/[0.04] pb-3">
+            <div>
+              <div className="text-lg font-bold text-slate-200 font-mono font-sans">35<span className="text-[10px] text-slate-400 ml-0.5">°C</span></div>
+              <div className="text-[8px] text-slate-500 uppercase font-mono font-sans">Row 001</div>
+            </div>
+            <div className="w-px h-6 bg-white/[0.06]" />
+            <div>
+              <div className="text-lg font-bold text-amber-500 font-mono">87<span className="text-[10px] text-slate-400 ml-0.5">°C</span></div>
+              <div className="text-[8px] text-slate-500 uppercase font-mono font-sans">Row 002</div>
+            </div>
+            <div className="w-px h-6 bg-white/[0.06]" />
+            <div>
+              <div className="text-lg font-bold text-slate-200 font-mono">57<span className="text-[10px] text-slate-400 ml-0.5">°C</span></div>
+              <div className="text-[8px] text-slate-500 uppercase font-mono font-sans">Row 003</div>
+            </div>
+          </div>
+
+          {/* Arc Gauge rendering */}
+          <div className="relative flex-1 flex flex-col items-center justify-end mt-2 overflow-hidden h-28">
+            <svg viewBox="0 0 100 50" className="w-36 h-18">
+              {/* Gauge path background */}
+              <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="8" strokeDasharray="1 1" />
+              {/* Highlight active path */}
+              <path d="M 10 50 A 40 40 0 0 1 70 50" fill="none" stroke="#64748b" strokeWidth="8" strokeDasharray="1.5 1.5" />
+            </svg>
             
-            {/* Format Distribution */}
-            <div className="bg-[#0A1120] border border-slate-800 rounded-lg p-5 flex">
-                <div className="flex-1">
-                    <h3 className="text-xs font-semibold text-slate-400 mb-6">Ingestion Protocols</h3>
-                    <svg width="100" height="100" viewBox="0 0 100 100" className="-rotate-90">
-                        {/* Fake Donut Segments */}
-                        <circle cx="50" cy="50" r="35" fill="none" stroke="#8b5cf6" strokeWidth="20" strokeDasharray="220" strokeDashoffset="0" />
-                        <circle cx="50" cy="50" r="35" fill="none" stroke="#3b82f6" strokeWidth="20" strokeDasharray="220" strokeDashoffset="120" />
-                        <circle cx="50" cy="50" r="35" fill="none" stroke="#f59e0b" strokeWidth="20" strokeDasharray="220" strokeDashoffset="170" />
-                        <circle cx="50" cy="50" r="35" fill="none" stroke="#10b981" strokeWidth="20" strokeDasharray="220" strokeDashoffset="210" />
-                    </svg>
-                </div>
-                <div className="flex-1 flex flex-col justify-center space-y-3 text-[10px]">
-                    <div className="flex justify-between font-mono"><span className="flex items-center text-slate-300"><div className="size-2 bg-purple-500 rounded-full mr-2"/>MQTT</span> <span className="text-purple-400 font-bold">45%</span></div>
-                    <div className="flex justify-between font-mono"><span className="flex items-center text-slate-300"><div className="size-2 bg-blue-500 rounded-full mr-2"/>Modbus TCP</span> <span className="text-blue-400 font-bold">25%</span></div>
-                    <div className="flex justify-between font-mono"><span className="flex items-center text-slate-300"><div className="size-2 bg-amber-500 rounded-full mr-2"/>REST API</span> <span className="text-amber-500 font-bold">20%</span></div>
-                    <div className="flex justify-between font-mono"><span className="flex items-center text-slate-300"><div className="size-2 bg-emerald-500 rounded-full mr-2"/>CSV Uploads</span> <span className="text-emerald-500 font-bold">10%</span></div>
-                </div>
+            {/* Center Gauge values and Button */}
+            <div className="absolute bottom-0 flex flex-col items-center text-center space-y-1">
+              <div className="flex space-x-6 text-[9px] text-slate-500 font-mono uppercase">
+                <span>12°C <span className="text-[8px] text-slate-600 block">Min</span></span>
+                <span>42°C <span className="text-[8px] text-slate-600 block">Max</span></span>
+              </div>
+              <button className="px-5 py-1.5 bg-[#1e1f22] border border-white/[0.08] hover:bg-[#25262a] transition-all rounded-full text-[9px] font-bold text-slate-200 uppercase tracking-widest cursor-pointer">
+                Cooling Down
+              </button>
             </div>
-
-            {/* Tier Breakdown */}
-            <div className="bg-[#0A1120] border border-slate-800 rounded-lg p-5 flex">
-                <div className="flex-1">
-                    <h3 className="text-xs font-semibold text-slate-400 mb-6">Data ML Tiers</h3>
-                    <svg width="100" height="100" viewBox="0 0 100 100" className="-rotate-90">
-                        <circle cx="50" cy="50" r="35" fill="none" stroke="#fcd34d" strokeWidth="20" strokeDasharray="220" strokeDashoffset="0" />
-                        <circle cx="50" cy="50" r="35" fill="none" stroke="#94a3b8" strokeWidth="20" strokeDasharray="220" strokeDashoffset="150" />
-                        <circle cx="50" cy="50" r="35" fill="none" stroke="#b45309" strokeWidth="20" strokeDasharray="220" strokeDashoffset="200" />
-                    </svg>
-                </div>
-                <div className="flex-1 flex flex-col justify-center space-y-3 text-[10px]">
-                    <div className="flex justify-between font-mono"><span className="flex items-center text-slate-300"><div className="size-2 bg-amber-300 rounded-full mr-2"/>Gold (Cleaned)</span> <span className="text-amber-400 font-bold">12 arrays</span></div>
-                    <div className="flex justify-between font-mono"><span className="flex items-center text-slate-300"><div className="size-2 bg-slate-400 rounded-full mr-2"/>Silver (Raw)</span> <span className="text-slate-400 font-bold">6 arrays</span></div>
-                    <div className="flex justify-between font-mono"><span className="flex items-center text-slate-300"><div className="size-2 bg-amber-700 rounded-full mr-2"/>Bronze (Archived)</span> <span className="text-amber-700 font-bold">2 arrays</span></div>
-                </div>
-            </div>
-
-            {/* Quality Score */}
-            <div className="bg-[#0A1120] border border-slate-800 rounded-lg p-5">
-                <h3 className="text-xs font-semibold text-slate-400 mb-6">Sensor Quality Score</h3>
-                <div className="flex items-end justify-between h-20 gap-2">
-                    <div className="bg-emerald-400 w-full rounded hover:bg-emerald-300 transition-colors" style={{ height: '98%' }} />
-                    <div className="bg-emerald-400 w-full rounded hover:bg-emerald-300 transition-colors" style={{ height: '95%' }} />
-                    <div className="bg-emerald-400 w-full rounded hover:bg-emerald-300 transition-colors" style={{ height: '90%' }} />
-                    <div className="bg-amber-500 w-full rounded hover:bg-amber-400 transition-colors" style={{ height: '60%' }} />
-                    <div className="bg-cyan-500 w-full rounded hover:bg-cyan-400 transition-colors" style={{ height: '85%' }} />
-                    <div className="bg-emerald-400 w-full rounded hover:bg-emerald-300 transition-colors" style={{ height: '100%' }} />
-                </div>
-                <div className="flex justify-between text-[10px] text-slate-600 font-mono mt-2">
-                    <span>100</span>
-                    <span>78</span>
-                </div>
-            </div>
-
+          </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex items-center space-x-6 border-b border-slate-800 text-xs text-slate-400 px-2 mb-6">
-            <button className="pb-3 hover:text-slate-200 flex items-center"><Database className="size-3 mr-2"/> Datasets</button>
-            <button className="pb-3 hover:text-slate-200 flex items-center"><ShieldCheck className="size-3 mr-2"/> Data Quality</button>
-            <button className="pb-3 hover:text-slate-200 flex items-center">Lineage</button>
-            <button className="pb-3 border-b-2 border-cyan-500 text-cyan-400 flex items-center"><DollarSign className="size-3 mr-1"/> Cost Analysis</button>
-            <button className="pb-3 hover:text-slate-200 flex items-center">Materialized Views</button>
-        </div>
-
-        {/* Bottom Panel */}
-        <div className="flex-1 bg-transparent flex flex-col">
-            
-            {/* Cost Mini Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-                <div className="bg-[#0A1120] border border-slate-800 rounded-lg p-3">
-                    <div className="text-[10px] text-amber-500 font-semibold mb-2 flex items-center"><DollarSign className="size-3" /> Total Cost (24h)</div>
-                    <div className="text-2xl font-bold font-mono text-amber-500">SAR 45.00</div>
-                </div>
-                <div className="bg-[#0A1120] border border-slate-800 rounded-lg p-3">
-                    <div className="text-[10px] text-cyan-400 font-semibold mb-2 flex items-center"><Activity className="size-3 mr-1" /> Avg / Query</div>
-                    <div className="text-2xl font-bold font-mono text-cyan-400">SAR 0.45</div>
-                </div>
-                <div className="bg-[#0A1120] border border-slate-800 rounded-lg p-3">
-                    <div className="text-[10px] text-emerald-400 font-semibold mb-2 flex items-center">Rows Scanned</div>
-                    <div className="text-2xl font-bold font-mono text-emerald-400">8.1M</div>
-                </div>
-                <div className="bg-[#0A1120] border border-slate-800 rounded-lg p-3">
-                    <div className="text-[10px] text-purple-400 font-semibold mb-2 flex items-center">Queries</div>
-                    <div className="text-2xl font-bold font-mono text-purple-400">142</div>
-                </div>
-            </div>
-
-            {/* Area Chart */}
-            <div className="flex-1 bg-[#0A1120] border border-slate-800 rounded-lg p-4 pb-0 h-64">
-                <h3 className="text-xs font-semibold text-slate-400 mb-6 border-b border-slate-800 pb-2">Hourly AI Engine Inference Cost (Last 24h)</h3>
-                <ResponsiveContainer width="100%" height={150}>
-                    <AreaChart data={COST_DATA} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
-                        <defs>
-                            <linearGradient id="colorCost" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3}/>
-                                <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
-                            </linearGradient>
-                        </defs>
-                        <XAxis dataKey="time" stroke="#334155" fontSize={10} tickLine={false} axisLine={false} dy={10} />
-                        <YAxis stroke="#334155" fontSize={10} tickLine={false} axisLine={false} />
-                        <Area type="monotone" dataKey="cost" stroke="#fbbf24" strokeWidth={2} fillOpacity={1} fill="url(#colorCost)" />
-                    </AreaChart>
-                </ResponsiveContainer>
+        {/* Card Column 3: Live Power Output + Panel Energy Distribution */}
+        <div className="flex flex-col gap-4 h-60">
+          {/* Top segment: Live Power Output */}
+          <div className="bg-[#18191b] border border-white/[0.06] rounded-xl p-4 flex flex-col justify-between flex-1 shadow-lg relative">
+            <div className="flex justify-between items-start">
+              <h3 className="text-[9px] font-bold text-slate-500 uppercase tracking-widest font-mono font-sans">Live Power Output</h3>
+              <span className="text-[9px] text-slate-600 font-mono">ⓘ</span>
             </div>
             
+            <div className="flex items-end justify-between my-2">
+              <div className="flex space-x-4 text-[9px] text-slate-400 font-mono">
+                <span>25.5 <span className="text-slate-600 block text-[8px] font-sans">Min</span></span>
+                <span>86.7 <span className="text-slate-600 block text-[8px] font-sans">Max</span></span>
+              </div>
+              
+              {/* Code-like barcode bar chart */}
+              <div className="flex items-end space-x-[2px] h-9">
+                <div className="w-[1.5px] bg-slate-600 h-2" />
+                <div className="w-[1.5px] bg-slate-600 h-3" />
+                <div className="w-[1.5px] bg-slate-600 h-1.5" />
+                <div className="w-[1.5px] bg-white/70 h-5" />
+                <div className="w-[1.5px] bg-slate-600 h-4" />
+                <div className="w-[1.5px] bg-slate-600 h-2.5" />
+                <div className="w-[1.5px] bg-white h-7" />
+                <div className="w-[1.5px] bg-slate-600 h-3.5" />
+                <div className="w-[1.5px] bg-slate-600 h-5" />
+                <div className="w-[1.5px] bg-slate-600 h-2" />
+                <div className="w-[1.5px] bg-white/60 h-6" />
+                <div className="w-[1.5px] bg-slate-600 h-3" />
+                <div className="w-[1.5px] bg-slate-600 h-1.5" />
+                <div className="w-[1.5px] bg-slate-600 h-4.5" />
+                <div className="w-[1.5px] bg-white h-8" />
+                <div className="w-[1.5px] bg-slate-600 h-3" />
+                <div className="w-[1.5px] bg-slate-600 h-2.5" />
+                <div className="w-[1.5px] bg-slate-600 h-4" />
+                <div className="w-[1.5px] bg-white/40 h-5.5" />
+                <div className="w-[1.5px] bg-slate-600 h-2" />
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom segment: Panel Energy Distribution */}
+          <div className="bg-[#18191b] border border-white/[0.06] rounded-xl p-4 flex flex-col justify-between flex-1 shadow-lg relative">
+            <div className="flex justify-between items-start">
+              <h3 className="text-[9px] font-bold text-slate-500 uppercase tracking-widest font-mono">Panel Energy Distribution</h3>
+              <span className="text-[9px] text-slate-650 font-mono">ⓘ</span>
+            </div>
+
+            {/* Distribution segments */}
+            <div className="flex items-end justify-between space-x-1.5 mt-2 h-7 relative">
+              {/* Segment 001 */}
+              <div className="flex-1 h-full bg-white/[0.02] border border-white/[0.04] rounded flex flex-col justify-between p-1">
+                <span className="text-[7px] text-slate-500 font-mono uppercase">001</span>
+                <div className="w-full h-1 bg-white/[0.03] rounded-sm overflow-hidden">
+                  <div className="w-[45%] h-full bg-slate-400" />
+                </div>
+              </div>
+              {/* Segment 002 */}
+              <div className="flex-1 h-full bg-white/[0.02] border border-white/[0.04] rounded flex flex-col justify-between p-1">
+                <span className="text-[7px] text-slate-500 font-mono uppercase">002</span>
+                <div className="w-full h-1 bg-white/[0.03] rounded-sm overflow-hidden">
+                  <div className="w-[85%] h-full bg-slate-400" />
+                </div>
+              </div>
+              {/* Segment 003 */}
+              <div className="flex-1 h-full bg-white/[0.02] border border-white/[0.04] rounded flex flex-col justify-between p-1">
+                <span className="text-[7px] text-slate-500 font-mono uppercase">003</span>
+                <div className="w-full h-1 bg-white/[0.03] rounded-sm overflow-hidden">
+                  <div className="w-[20%] h-full bg-slate-400" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        {/* Card Column 4: Energy Generated Today + Ring Gauge */}
+        <div className="bg-[#18191b] border border-white/[0.06] rounded-xl p-5 flex flex-col justify-between shadow-lg relative h-60">
+          <div className="flex justify-between items-start mb-2">
+            <h3 className="text-xs font-bold text-white uppercase tracking-widest font-mono">Energy Generated Today</h3>
+            <span className="text-[9px] text-slate-655 font-mono">ⓘ</span>
+          </div>
+
+          {/* Stats subheaders */}
+          <div className="flex justify-between items-center text-center mt-1 border-b border-white/[0.04] pb-3">
+            <div>
+              <div className="text-xs font-bold text-slate-200 font-mono">86.7 MWh</div>
+              <div className="text-[8px] text-slate-500 uppercase font-mono mt-0.5">Avg</div>
+            </div>
+            <div className="w-px h-6 bg-white/[0.06]" />
+            <div>
+              <div className="text-xs font-bold text-slate-200 font-mono font-sans">90.0 MWh</div>
+              <div className="text-[8px] text-slate-500 uppercase font-mono mt-0.5">Target</div>
+            </div>
+            <div className="w-px h-6 bg-white/[0.06]" />
+            <div>
+              <div className="text-xs font-bold text-rose-500 font-mono">-5.9%</div>
+              <div className="text-[8px] text-slate-500 uppercase font-mono mt-0.5">Deviation</div>
+            </div>
+          </div>
+
+          {/* Circular ring gauge */}
+          <div className="relative flex-1 flex flex-col items-center justify-end mt-2 overflow-hidden h-28">
+            <svg viewBox="0 0 100 100" className="w-24 h-24 absolute -bottom-4">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="6" />
+              {/* Active ring path segment */}
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#64748b" strokeWidth="6" strokeDasharray="251.2" strokeDashoffset="60" strokeLinecap="round" className="-rotate-90 origin-center" />
+            </svg>
+
+            {/* Inner values and button */}
+            <div className="absolute top-4 flex flex-col items-center text-center space-y-0.5">
+              <div className="text-[8px] text-slate-550 font-mono uppercase">Total Energy</div>
+              <div className="text-sm font-bold text-white font-mono leading-none">{energyGenerated}</div>
+              <div className="text-[8px] text-slate-450 font-mono">MWh</div>
+            </div>
+            
+            <button 
+              onClick={handleRefreshEnergy}
+              className="absolute bottom-0 px-5 py-1.5 bg-[#1e1f22] border border-white/[0.08] hover:bg-[#25262a] transition-all rounded-full text-[9px] font-bold text-slate-200 uppercase tracking-widest z-10 cursor-pointer"
+            >
+              Refresh Energy
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
   );
 }

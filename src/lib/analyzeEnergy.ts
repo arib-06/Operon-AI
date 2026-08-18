@@ -1,5 +1,5 @@
 export interface EnergyData {
-  dust: number;
+  operon: number;
   temp: number;
   expected: number;
   actual: number;
@@ -40,7 +40,7 @@ export interface AuthOperatorOutput {
 }
 
 export function analyzeEnergy(data: EnergyData): AuthOperatorOutput {
-  const { dust, temp, expected, actual } = data;
+  const { operon, temp, expected, actual } = data;
   const SAR_PER_KWH = data.electricityRate || 0.18; // Standard Saudi industrial tariff approx
   
   let lossPercent = 0;
@@ -48,13 +48,13 @@ export function analyzeEnergy(data: EnergyData): AuthOperatorOutput {
     lossPercent = ((expected - actual) / expected) * 100;
   }
 
-  const isDust = dust > 60;
+  const isOperon = operon > 60;
   const isHeat = temp > 50;
 
   const issues = [];
-  if (isDust) issues.push("Severe Dust Accumulation");
-  if (isHeat) issues.push("Thermal Saturation");
-  if (!isDust && !isHeat && lossPercent > 5) issues.push("System Inefficiency");
+  if (isOperon) issues.push("Operon Accumulation");
+  if (isHeat) issues.push("High Temperature");
+  if (!isOperon && !isHeat && lossPercent > 5) issues.push("Minor Inefficiency");
   
   const finalIssue = issues.length > 0 ? issues.join(" & ") : "Optimal Generation";
 
@@ -63,8 +63,8 @@ export function analyzeEnergy(data: EnergyData): AuthOperatorOutput {
   const baseDailyRevenue = expected * peakSunHours * SAR_PER_KWH;
   const currentDailyLoss = (lossPercent / 100) * baseDailyRevenue;
 
-  // Simulate +5% loss increase per day if dust/heat is unresolved
-  const compoundingRate = isDust ? 0.05 : isHeat ? 0.02 : 0.01;
+  // Simulate +5% loss increase per day if operon/heat is unresolved
+  const compoundingRate = isOperon ? 0.05 : isHeat ? 0.02 : 0.01;
   const day1Loss = currentDailyLoss;
   const day2Loss = baseDailyRevenue * Math.min(1, (lossPercent/100 + compoundingRate));
   const day3Loss = baseDailyRevenue * Math.min(1, (lossPercent/100 + compoundingRate * 2));
@@ -90,24 +90,24 @@ export function analyzeEnergy(data: EnergyData): AuthOperatorOutput {
   let autoMessage = "";
 
   if (lossPercent < 10) {
-    recommendedAction = "Maintain Idle State";
-    bestTime = "No Action Required";
-    reason = "Efficiency loss is within acceptable baseline variance. Dispatching drones incurs negative ROI.";
+    recommendedAction = "None";
+    bestTime = "N/A";
+    reason = "System performance is within optimal range. Cleaning costs would exceed generation savings.";
     autoStatus = "Monitoring";
-    autoMessage = "No dispatch scheduled. System running nominally within economic bounds.";
+    autoMessage = "System running nominally. No maintenance required.";
   } else if (lossPercent >= 10 && lossPercent <= 25) {
-    recommendedAction = "Batch Cleaning Protocol";
-    bestTime = "In 48 Hours";
-    reason = `Current loss (${lossPercent.toFixed(1)}%) hasn't breached the breakeven cost of immediate dispatch. Delaying saves resources while monitoring storm activity.`;
+    recommendedAction = "Maintenance Wash";
+    bestTime = "48 Hours";
+    reason = `Performance loss is minor (${lossPercent.toFixed(1)}%). Scheduled wash in 48 hours is more cost-effective than immediate dispatch.`;
     autoStatus = "Scheduled";
-    autoMessage = "Autonomous drone wash scheduled for 48 hours from now.";
+    autoMessage = "Scheduled maintenance wash queued.";
   } else {
     // > 25%
-    recommendedAction = "Emergency Panel Wash";
-    bestTime = "Immediately";
-    reason = `Critical efficiency drop detected. Delayed action will result in catastrophic compounding losses of SAR ${totalNoActionLoss} over 3 days.`;
+    recommendedAction = "Immediate Clean";
+    bestTime = "Immediate";
+    reason = `Significant efficiency loss detected. Immediate wash required to prevent generation loss (est. SAR ${totalNoActionLoss} over 3 days).`;
     autoStatus = "Dispatched";
-    autoMessage = "Override active. Tractor cleaning unit dispatched to sector.";
+    autoMessage = "Cleaning unit dispatched.";
   }
 
   return {

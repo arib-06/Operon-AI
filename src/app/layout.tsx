@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DustIQ – AI Solar Intelligence",
+  title: "Operon – AI Solar Intelligence",
   description: "Advanced energy loss and solar health dashboard.",
 };
 
@@ -29,7 +29,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#010b06] text-slate-50 relative selection:bg-emerald-500/30">
+      <body className="min-h-full flex flex-col bg-[#0d0e10] text-slate-100 relative selection:bg-white/10">
         <Sidebar />
         <div className="pl-0 md:pl-64 flex-1">
           {children}

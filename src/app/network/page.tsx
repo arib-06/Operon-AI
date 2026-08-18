@@ -1,10 +1,11 @@
 "use client";
 
 import { Share2, AlertTriangle, Shield, ZoomIn, ZoomOut, Maximize, ScanFace } from "lucide-react";
+import TranslateWidget from "@/components/TranslateWidget";
 
 // AR HUD Colors: Primarily Bright Emerald/Cyan with Gold/Amber targets
 const HUD_STYLES = {
-    standard: { stroke: "#10b981", core: "#059669", accent: "#34d399" }, // Emerald Hologram
+    standard: { stroke: "#94a3b8", core: "#64748b", accent: "#cbd5e1" }, // Slate Hologram
     target: { stroke: "#fbbf24", core: "#d97706", accent: "#fde68a" },   // Gold Target
 };
 
@@ -57,11 +58,11 @@ const EDGES = [
 
 function HUDStatCard({ title, value, highlightClass, icon: Icon }: any) {
     return (
-        <div className={`bg-[#010b06]/80 backdrop-blur-md border border-emerald-900/40 rounded p-4 flex flex-col justify-between h-20 shadow-lg relative overflow-hidden group`}>
-            <div className="absolute top-0 left-0 w-1 h-full bg-emerald-500/20" />
-            <div className={`absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/50 opacity-50 m-1`} />
+        <div className={`widget-hover rounded p-4 flex flex-col justify-between h-20 relative overflow-hidden group`}>
+            <div className="absolute top-0 left-0 w-1 h-full bg-slate-500/10" />
+            <div className={`absolute top-0 right-0 w-4 h-4 border-t border-r border-white/[0.12] opacity-50 m-1`} />
             <div className="flex justify-between items-center w-full mb-1 pl-2">
-                <span className="text-[10px] uppercase font-bold text-emerald-700 font-mono tracking-widest">{title}</span>
+                <span className="text-[10px] uppercase font-bold text-slate-500 font-mono tracking-widest">{title}</span>
                 {Icon && <Icon className={`size-3 ${highlightClass}`} />}
             </div>
             <div className="flex justify-between items-end w-full pl-2">
@@ -73,26 +74,27 @@ function HUDStatCard({ title, value, highlightClass, icon: Icon }: any) {
 
 export default function AugmentedGraphPage() {
   return (
-    <div className="flex flex-col h-screen bg-black text-emerald-400 font-sans max-w-[1800px] mx-auto overflow-hidden relative">
+    <div className="flex flex-col h-screen bg-transparent text-slate-300 font-sans max-w-[1800px] mx-auto overflow-hidden relative">
         
         {/* AR Glitch Overlay (purely cosmetic subtle lines) */}
-        <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjEiIGZpbGw9IiMxMGI5ODEiLz48L3N2Zz4=')] mix-blend-screen" />
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjEiIGZpbGw9IiNmOGZhZmMiLz48L3N2Zz4=')] mix-blend-screen" />
         
         {/* Top Header HUD Style */}
-        <header className="absolute top-4 left-4 z-20 flex items-center space-x-3 text-xs font-mono">
-           <div className="flex items-center bg-[#010b06]/80 backdrop-blur-md px-4 py-2 rounded border border-emerald-900/50 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-               <ScanFace className="size-4 text-emerald-400 mr-3 animate-pulse" />
-               <span className="text-emerald-500 font-bold tracking-widest uppercase flex items-center">
+        <header className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between text-xs font-sans">
+           <div className="flex items-center bg-white/[0.03] backdrop-blur-xl px-4 py-2 rounded border border-white/[0.08] shadow-lg">
+               <ScanFace className="size-4 text-slate-300 mr-3 animate-pulse" />
+               <span className="text-slate-200 font-semibold tracking-wide uppercase flex items-center">
                    OPTICAL LINK 
-                   <span className="ml-3 px-1.5 py-0.5 bg-emerald-950/50 text-emerald-300 text-[9px] border border-emerald-800">ESTABLISHED</span>
+                   <span className="ml-3 px-1.5 py-0.5 bg-white/[0.04] text-slate-300 text-[9px] border border-white/[0.08] rounded">ESTABLISHED</span>
                </span>
            </div>
+           <TranslateWidget />
         </header>
 
         {/* Stats overlay */}
         <div className="absolute top-20 left-4 z-20 w-64 space-y-3">
-            <HUDStatCard title="Entities Tracked" value="0021" highlightClass="text-emerald-400" icon={Share2} />
-            <HUDStatCard title="Active Vectors" value="0025" highlightClass="text-emerald-400" />
+            <HUDStatCard title="Entities Tracked" value="0021" highlightClass="text-slate-200" icon={Share2} />
+            <HUDStatCard title="Active Vectors" value="0025" highlightClass="text-slate-200" />
             <HUDStatCard title="Target Lock" value="TRQ-7" highlightClass="text-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.2)]" icon={Maximize} />
         </div>
 
@@ -128,10 +130,10 @@ export default function AugmentedGraphPage() {
                 </defs>
 
                 {/* Radar sweep background grid circles */}
-                <circle cx="50" cy="50" r="30" fill="none" stroke="#064e3b" strokeWidth="0.1" strokeDasharray="1 3" />
-                <circle cx="50" cy="50" r="45" fill="none" stroke="#064e3b" strokeWidth="0.1" strokeDasharray="1 5" />
-                <line x1="50" y1="0" x2="50" y2="100" stroke="#064e3b" strokeWidth="0.05" />
-                <line x1="0" y1="50" x2="100" y2="50" stroke="#064e3b" strokeWidth="0.05" />
+                <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="0.1" strokeDasharray="1 3" />
+                <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="0.1" strokeDasharray="1 5" />
+                <line x1="50" y1="0" x2="50" y2="100" stroke="rgba(255,255,255,0.06)" strokeWidth="0.05" />
+                <line x1="0" y1="50" x2="100" y2="50" stroke="rgba(255,255,255,0.06)" strokeWidth="0.05" />
 
                 {/* Edges */}
                 {EDGES.map((edge, i) => {
@@ -158,7 +160,7 @@ export default function AugmentedGraphPage() {
                                 x1={fromNode.x} y1={fromNode.y} 
                                 x2={toNode.x} y2={toNode.y} 
                                 // Razor thin holographic dotted lines
-                                stroke={isHighlight ? "#fbbf24" : "#10b981"} 
+                                stroke={isHighlight ? "#fbbf24" : "#94a3b8"} 
                                 strokeWidth={isHighlight ? "0.2" : "0.08"}
                                 strokeDasharray={isHighlight ? "none" : "1 1"}
                                 opacity={isHighlight ? 1 : 0.4}
@@ -218,12 +220,12 @@ export default function AugmentedGraphPage() {
                                 </g>
                             )}
 
-                            {/* Label - Monospace Terminal style */}
+                             {/* Label - Monospace Terminal style */}
                             <text 
                                 x={node.x + node.size + 1} 
                                 y={node.y + 0.3} 
                                 fontSize="0.9" 
-                                fill={node.isTarget ? "#fbbf24" : "#34d399"} 
+                                fill={node.isTarget ? "#fbbf24" : "#e2e8f0"} 
                                 className="font-mono"
                                 textAnchor="start"
                                 opacity="0.9"
@@ -235,7 +237,7 @@ export default function AugmentedGraphPage() {
                                 x={node.x + node.size + 1.2} 
                                 y={node.y + 1.2} 
                                 fontSize="0.4" 
-                                fill="#047857" 
+                                fill="#94a3b8" 
                                 className="font-mono tracking-widest"
                                 textAnchor="start"
                             >
@@ -247,18 +249,18 @@ export default function AugmentedGraphPage() {
             </svg>
 
             {/* Bottom Target Info Panel */}
-            <div className="absolute bottom-6 right-6 z-20 w-80 bg-[#010b06]/90 backdrop-blur-xl border border-amber-500/40 p-4 rounded-lg shadow-[0_0_20px_rgba(251,191,36,0.1)]">
-                <div className="flex justify-between items-start mb-2 border-b border-amber-900/50 pb-2">
+            <div className="absolute bottom-6 right-6 z-20 w-80 widget-hover border-amber-500/20 p-4 rounded-lg">
+                <div className="flex justify-between items-start mb-2 border-b border-white/[0.06] pb-2">
                     <div>
                         <div className="text-[10px] text-amber-500 font-mono tracking-widest flex items-center mb-1">
                             <AlertTriangle className="size-3 mr-1" />
                             TARGET LOCK ACTIVE
                         </div>
-                        <h3 className="text-sm text-emerald-100 font-mono">TRQ-7 <span className="text-slate-500">&rarr;</span> RCV-DRN</h3>
+                        <h3 className="text-sm text-slate-100 font-mono">TRQ-7 <span className="text-slate-500">&rarr;</span> RCV-DRN</h3>
                     </div>
                 </div>
                 <div className="space-y-1 font-mono text-[9px]">
-                    <div className="flex justify-between"><span className="text-slate-500">OP STATUS:</span> <span className="text-emerald-400">NOMINAL</span></div>
+                    <div className="flex justify-between"><span className="text-slate-500">OP STATUS:</span> <span className="text-sky-400">NOMINAL</span></div>
                     <div className="flex justify-between"><span className="text-slate-500">INTERFERENCE:</span> <span className="text-rose-400">HIGH (91.2%)</span></div>
                     <div className="flex justify-between"><span className="text-slate-500">EST. LATENCY:</span> <span className="text-amber-400">14ms</span></div>
                 </div>
