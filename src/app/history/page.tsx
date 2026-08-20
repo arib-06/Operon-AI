@@ -1,8 +1,6 @@
 "use client";
 
 import { Database, Filter, ArrowUpRight, ArrowDownRight, CheckCircle2 } from "lucide-react";
-import TranslateWidget from "@/components/TranslateWidget";
-
 const HISTORY_DATA = [
   {
     id: "OP-4921",
@@ -67,8 +65,7 @@ export default function HistoryPage() {
                 </div>
                 <p className="text-slate-400 text-sm">Historical record of all AI-initiated interventions and their financial recoveries.</p>
             </div>
-            <TranslateWidget />
-        </header>
+         </header>
 
         <div className="flex justify-between items-center widget-hover p-4 rounded-xl font-sans">
            <div className="flex items-center space-x-2 text-sm text-slate-400">

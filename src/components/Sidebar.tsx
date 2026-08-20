@@ -2,19 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 import {
   BrainCircuit,
   Home,
-  Lightbulb,
-  Share2,
   Map,
-  Activity,
   Layers,
   Settings,
   Shield,
-  Database,
-  Lock
+  Database
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -23,27 +18,16 @@ function GlassMenuItem({ item, isActive }: { item: any; isActive: boolean }) {
     <Link
       href={item.href}
       className={cn(
-        "w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl transition-all duration-500 relative overflow-hidden group",
+        "w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl transition-all duration-200 relative group",
         isActive 
-          ? "bg-white/[0.08] backdrop-blur-md border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] text-white"
-          : "text-slate-400 border border-transparent hover:bg-white/[0.05] hover:backdrop-blur-sm hover:border-white/[0.05] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] hover:text-white"
+          ? "bg-white/[0.08] border border-white/10 text-white"
+          : "text-slate-400 border border-transparent hover:bg-white/[0.05] hover:text-white"
       )}
     >
-      {/* The Moving iOS Glass Glare! */}
-      <div className="absolute inset-0 -translate-x-[150%] group-hover:animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
+      {isActive && <div className="absolute left-0 top-1/2 -translate-y-1/2 h-1/2 w-0.5 bg-amber-400 rounded-r" />}
       
-      {/* Orange/Amber active indicator line on the left edge */}
-      {isActive && <div className="absolute left-0 top-1/2 -translate-y-1/2 h-1/2 w-1 bg-amber-400 blur-[1px] rounded-r-md z-10" />}
-      
-      <item.icon className={cn("size-4 transition-transform duration-500 group-hover:scale-110 relative z-10", isActive && "text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]")} />
-      <span className="text-[13px] tracking-wide font-medium relative z-10 drop-shadow-md">{item.label}</span>
-      
-      {/* Adding shimmer keyframes injected dynamically */}
-      <style>{`
-        @keyframes shimmer {
-          100% { transform: translateX(150%) skewX(12deg); }
-        }
-      `}</style>
+      <item.icon className={cn("size-4 relative z-10", isActive && "text-amber-400")} />
+      <span className="text-[13px] tracking-wide font-medium relative z-10">{item.label}</span>
     </Link>
   );
 }
@@ -56,7 +40,6 @@ export default function Sidebar() {
   ];
 
   const analysisItems = [
-    { label: "Knowledge Graph", href: "/network", icon: Share2 },
     { label: "Geospatial Intel", href: "/geospatial", icon: Map },
     { label: "Digital Twin", href: "/twin", icon: Layers },
   ];
@@ -128,14 +111,14 @@ export default function Sidebar() {
             <div className="flex items-center justify-between">
                 <span className="text-xs text-slate-400">Data Ingestion</span>
                 <div className="flex items-center space-x-2">
-                   <div className="size-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
+                   <div className="size-1.5 rounded-full bg-sky-400" />
                    <span className="text-[10px] text-sky-400 font-mono tracking-widest uppercase">Online</span>
                 </div>
             </div>
             <div className="flex items-center justify-between">
                 <span className="text-xs text-slate-400">Knowledge Graph</span>
                 <div className="flex items-center space-x-2">
-                   <div className="size-1.5 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.8)]" />
+                   <div className="size-1.5 rounded-full bg-amber-500" />
                    <span className="text-[10px] text-amber-500 font-mono tracking-widest uppercase">Sync</span>
                 </div>
             </div>

@@ -6,18 +6,11 @@ import {
   Wind,
   AlertCircle,
   Target,
-  Home,
   Cpu,
   Database,
-  Eye,
-  Settings,
-  ArrowDownRight,
   TrendingDown,
   BrainCircuit,
-  Lightbulb,
-  CheckCircle2,
-  Terminal,
-  Zap
+  Terminal
 } from "lucide-react";
 import {
   LineChart,
@@ -30,7 +23,6 @@ import {
 } from "recharts";
 import { analyzeEnergy, EnergyData, AuthOperatorOutput } from "@/lib/analyzeEnergy";
 import { cn } from "@/lib/utils";
-import TranslateWidget from "@/components/TranslateWidget";
 
 // --- Top Card Component ---
 function TopCard({ title, value, icon: Icon, colorClass, borderClass }: any) {
@@ -105,9 +97,8 @@ export default function Dashboard() {
             <p className="text-slate-400 text-sm tracking-wide font-medium">NEOM Solar Array — Sector 7 Operations</p>
           </div>
           <div className="flex items-center space-x-3">
-             <TranslateWidget />
-             <div className="flex items-center space-x-2 bg-white/[0.04] backdrop-blur-md px-4 py-2 rounded-full border border-white/[0.08] shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
-                <div className="size-2 bg-sky-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
+             <div className="flex items-center space-x-2 bg-white/[0.04] backdrop-blur-md px-4 py-2 rounded-full border border-white/[0.08]">
+                <div className="size-2 bg-sky-400 rounded-full" />
                 <span className="text-xs font-sans text-slate-200 font-semibold tracking-wide uppercase">Operator Active</span>
              </div>
           </div>
@@ -127,7 +118,7 @@ export default function Dashboard() {
             value={analysis.issue}
             icon={AlertCircle}
             colorClass={analysis.currentLossPercent > 10 ? "text-amber-400" : "text-slate-300"}
-            borderClass={analysis.currentLossPercent > 10 ? "border-amber-500/20 shadow-[0_0_15px_rgba(251,191,36,0.05)]" : "border-white/[0.08]"}
+             borderClass={analysis.currentLossPercent > 10 ? "border-amber-500/20" : "border-white/[0.08]"}
           />
           <TopCard
             title="Projected 3-Day Loss"
@@ -145,8 +136,8 @@ export default function Dashboard() {
               analysis.automation.status === 'Scheduled' ? "text-amber-400" : "text-slate-300"
             }
             borderClass={
-              analysis.automation.status === 'Dispatched' ? "border-sky-500/20 bg-sky-950/10 shadow-[0_0_20px_rgba(56,189,248,0.05)]" : 
-              analysis.automation.status === 'Scheduled' ? "border-amber-500/20 bg-amber-950/10 shadow-[0_0_20px_rgba(251,191,36,0.05)]" : "border-white/[0.08] bg-white/[0.01]"
+              analysis.automation.status === 'Dispatched' ? "border-sky-500/20 bg-sky-950/10" : 
+              analysis.automation.status === 'Scheduled' ? "border-amber-500/20 bg-amber-950/10" : "border-white/[0.08] bg-white/[0.01]"
             }
           />
         </div>
@@ -285,9 +276,7 @@ export default function Dashboard() {
              </div>
 
              {/* SECTION C - DECISION ENGINE */}
-              <div className="widget-hover rounded-xl relative overflow-hidden flex flex-col justify-between flex-1 group">
-                  {/* Sweep animation behind */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-[shimmer_2s_infinite]" />
+              <div className="widget-hover rounded-xl relative overflow-hidden flex flex-col justify-between flex-1">
                   
                   <div className="p-7 relative z-10">
                     <div className="absolute top-0 right-0 py-1.5 px-3 text-[9px] text-slate-400 font-mono uppercase tracking-widest bg-white/[0.02] rounded-bl-lg border-b border-l border-white/[0.08]">
@@ -309,7 +298,7 @@ export default function Dashboard() {
                           <div className="flex flex-col space-y-2">
                             <div className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Target Schedule</div>
                             <div className="font-bold text-amber-400 text-lg flex items-center">
-                               <span className="size-2 rounded-full bg-amber-500 mr-2 animate-pulse" />
+                               <span className="size-2 rounded-full bg-amber-500 mr-2" />
                                {analysis.decision.bestTime}
                             </div>
                           </div>

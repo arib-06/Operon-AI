@@ -2,15 +2,13 @@
 
 import { useState } from "react";
 import { 
-  Sun, Lock, Leaf, DollarSign, Thermometer, Battery, 
-  Activity, Globe, Target, Maximize2, Plus, Minus, RotateCw, AlertTriangle
+  Sun, Lock, Leaf, DollarSign, Thermometer,
+  Activity
 } from "lucide-react";
 import Image from "next/image";
-import TranslateWidget from "@/components/TranslateWidget";
 
 export default function DataLakePage() {
-  const [activeAlerts, setActiveAlerts] = useState(0);
-  const [panelState, setPanelState] = useState(true); // true = active, false = off
+  const [panelState, setPanelState] = useState(true);
   const [energyGenerated, setEnergyGenerated] = useState(847.3);
 
   const handleTogglePanel = () => {
@@ -32,9 +30,8 @@ export default function DataLakePage() {
             <span className="text-slate-400">Soleil Solar Telemetry Data Lake</span>
          </div>
          <div className="flex items-center space-x-3">
-            <TranslateWidget />
-            <span className="flex items-center bg-white/[0.03] px-3 py-1.5 rounded-md border border-white/[0.08] shadow-inner">
-                <div className="size-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)] animate-pulse mr-2" />
+            <span className="flex items-center bg-white/[0.03] px-3 py-1.5 rounded-md border border-white/[0.08]">
+                <div className="size-1.5 rounded-full bg-sky-400 mr-2" />
                 <span className="text-slate-300 font-sans font-semibold tracking-wide uppercase">Telemetry Grid Connected</span>
             </span>
          </div>
@@ -70,7 +67,7 @@ export default function DataLakePage() {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-slate-400 font-medium">Active Alerts</span>
-                <span className="font-mono text-white font-bold">{activeAlerts} <span className="text-[10px] text-slate-400 font-sans font-normal ml-1">Alerts</span></span>
+                <span className="font-mono text-white font-bold">0 <span className="text-[10px] text-slate-400 font-sans font-normal ml-1">Alerts</span></span>
               </div>
             </div>
 
@@ -143,23 +140,12 @@ export default function DataLakePage() {
               />
               
               {/* Highlight Nodes / Target Dots over panel coordinates */}
-              <div className="absolute top-[28%] left-[54%] w-3 h-3 bg-white rounded-full border border-slate-900 shadow-lg animate-ping" />
-              <div className="absolute top-[28%] left-[54%] w-2 h-2 bg-white rounded-full border border-slate-900 shadow-lg" />
-              
-              <div className="absolute top-[38%] left-[44%] w-3 h-3 bg-white rounded-full border border-slate-900 shadow-lg animate-ping" />
-              <div className="absolute top-[38%] left-[44%] w-2 h-2 bg-white rounded-full border border-slate-900 shadow-lg" />
-
-              <div className="absolute top-[48%] left-[34%] w-3 h-3 bg-white rounded-full border border-slate-900 shadow-lg animate-ping" />
-              <div className="absolute top-[48%] left-[34%] w-2 h-2 bg-white rounded-full border border-slate-900 shadow-lg" />
-              
-              <div className="absolute top-[20%] left-[64%] w-3 h-3 bg-white rounded-full border border-slate-900 shadow-lg animate-ping" />
-              <div className="absolute top-[20%] left-[64%] w-2 h-2 bg-white rounded-full border border-slate-900 shadow-lg" />
-
-              <div className="absolute top-[33%] left-[73%] w-3 h-3 bg-white rounded-full border border-slate-900 shadow-lg animate-ping" />
-              <div className="absolute top-[33%] left-[73%] w-2 h-2 bg-white rounded-full border border-slate-900 shadow-lg" />
-
-              <div className="absolute top-[44%] left-[61%] w-3 h-3 bg-white rounded-full border border-slate-900 shadow-lg animate-ping" />
-              <div className="absolute top-[44%] left-[61%] w-2 h-2 bg-white rounded-full border border-slate-900 shadow-lg" />
+              <div className="absolute top-[28%] left-[54%] w-2 h-2 bg-white/70 rounded-full border border-slate-900" />
+              <div className="absolute top-[38%] left-[44%] w-2 h-2 bg-white/70 rounded-full border border-slate-900" />
+              <div className="absolute top-[48%] left-[34%] w-2 h-2 bg-white/70 rounded-full border border-slate-900" />
+              <div className="absolute top-[20%] left-[64%] w-2 h-2 bg-white/70 rounded-full border border-slate-900" />
+              <div className="absolute top-[33%] left-[73%] w-2 h-2 bg-white/70 rounded-full border border-slate-900" />
+              <div className="absolute top-[44%] left-[61%] w-2 h-2 bg-white/70 rounded-full border border-slate-900" />
             </div>
           </div>
 
@@ -227,29 +213,6 @@ export default function DataLakePage() {
             </div>
           </div>
 
-          {/* Floating HUD controls bottom-left */}
-          <div className="absolute bottom-5 left-6 z-10 flex space-x-2">
-            <button className="p-2 bg-[#1e1f22]/90 border border-white/[0.08] rounded hover:bg-[#25262a] transition-all text-slate-300 cursor-pointer shadow-lg">
-              <Target className="size-4" />
-            </button>
-            <button className="p-2 bg-[#1e1f22]/90 border border-white/[0.08] rounded hover:bg-[#25262a] transition-all text-slate-300 cursor-pointer shadow-lg">
-              <Globe className="size-4" />
-            </button>
-          </div>
-
-          {/* Floating Zoom HUD controls bottom-right */}
-          <div className="absolute bottom-5 right-6 z-10 flex space-x-2">
-            <button className="p-2 bg-[#1e1f22]/90 border border-white/[0.08] rounded hover:bg-[#25262a] transition-all text-slate-300 cursor-pointer shadow-lg">
-              <Plus className="size-4" />
-            </button>
-            <button className="p-2 bg-[#1e1f22]/90 border border-white/[0.08] rounded hover:bg-[#25262a] transition-all text-slate-300 cursor-pointer shadow-lg">
-              <Minus className="size-4" />
-            </button>
-          </div>
-
-          {/* Layout corner decor border spacer */}
-          <div className="absolute top-0 right-0 w-8 h-8 border-t border-r border-white/10 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-8 h-8 border-b border-l border-white/10 pointer-events-none" />
         </div>
 
       </div>

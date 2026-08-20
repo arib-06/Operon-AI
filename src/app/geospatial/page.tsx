@@ -1,8 +1,6 @@
 "use client";
 
 import { AlertTriangle, ShieldAlert, ThermometerSun, Database, ArrowRight } from "lucide-react";
-import TranslateWidget from "@/components/TranslateWidget";
-
 function TopCard({ title, value, subtitle, dotColor, borderClass }: any) {
   return (
     <div className={`bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg p-4 flex flex-col justify-between h-28 relative overflow-hidden flex-1 ${borderClass}`}>
@@ -54,9 +52,8 @@ export default function GeospatialIntelPage() {
               <span className="text-slate-400">Array Threat Hotspots</span>
            </div>
            <div className="flex items-center space-x-3">
-              <TranslateWidget />
-              <span className="flex items-center bg-white/[0.04] px-3 py-1.5 rounded-md border border-white/[0.08] shadow-inner">
-                  <div className="size-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)] animate-pulse mr-2" />
+              <span className="flex items-center bg-white/[0.04] px-3 py-1.5 rounded-md border border-white/[0.08]">
+                  <div className="size-1.5 rounded-full bg-sky-400 mr-2" />
                   <span className="text-slate-300 font-sans font-semibold tracking-wide uppercase">Live Tracking</span>
               </span>
            </div>
@@ -64,7 +61,7 @@ export default function GeospatialIntelPage() {
 
         {/* Top Stats Row */}
         <div className="flex flex-wrap md:flex-nowrap gap-4 mb-6">
-            <TopCard title="Critical" value="16" subtitle="Immediate intervention" dotColor="#f43f5e" borderClass="border-rose-500/20 shadow-[0_0_15px_rgba(244,63,94,0.05)]" />
+            <TopCard title="Critical" value="16" subtitle="Immediate intervention" dotColor="#f43f5e" borderClass="border-rose-500/20" />
             <TopCard title="High Severity" value="40" subtitle="Elevated loss threat" dotColor="#f59e0b" borderClass="border-amber-500/20" />
             <TopCard title="Array Alerts" value="85" subtitle="Sub-optimal regions" dotColor="#f97316" borderClass="border-orange-500/20" />
             <TopCard title="Incidents (7d)" value="154" subtitle="Recent dispatches" dotColor="#c084fc" borderClass="border-purple-500/20" />

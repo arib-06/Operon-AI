@@ -1,8 +1,6 @@
 "use client";
 
 import { ShieldAlert, Database, Users, Lock, AlertTriangle, CheckCircle, ShieldUser, ArrowRight } from "lucide-react";
-import TranslateWidget from "@/components/TranslateWidget";
-
 function TopStat({ title, value, subtitle, icon: Icon, colorClass, borderClass }: any) {
     return (
         <div className={`widget-hover rounded-lg p-3 lg:p-4 flex flex-col justify-between h-24 ${borderClass}`}>
@@ -52,9 +50,8 @@ export default function SecurityGovernancePage() {
               <span className="text-slate-400">Security & Governance</span>
            </div>
            <div className="flex items-center space-x-3">
-              <TranslateWidget />
-              <span className="flex items-center bg-white/[0.04] px-3 py-1.5 rounded-md border border-white/[0.08] shadow-inner">
-                  <div className="size-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)] animate-pulse mr-2" />
+              <span className="flex items-center bg-white/[0.04] px-3 py-1.5 rounded-md border border-white/[0.08]">
+                  <div className="size-1.5 rounded-full bg-sky-400 mr-2" />
                   <span className="text-slate-300 font-sans font-semibold tracking-wide uppercase">Live</span>
               </span>
            </div>
@@ -67,7 +64,7 @@ export default function SecurityGovernancePage() {
             <TopStat title="Denied Actions" value="15" subtitle="DENY status" icon={Lock} colorClass="text-rose-500" borderClass="border-rose-500/20" />
             <TopStat title="Violations (7d)" value="2" subtitle="Trend period" icon={AlertTriangle} colorClass="text-amber-500" borderClass="border-amber-500/20" />
             <TopStat title="Access Status" value="ALLOW" subtitle="Clearance sufficient" icon={CheckCircle} colorClass="text-sky-400" borderClass="border-white/[0.1] bg-white/[0.02]" />
-            <TopStat title="Clearance" value="SECRET" subtitle="Admin privileges" icon={ShieldUser} colorClass="text-amber-500" borderClass="border-amber-500/30 bg-amber-500/10 shadow-[0_0_15px_rgba(251,191,36,0.1)]" />
+            <TopStat title="Clearance" value="SECRET" subtitle="Admin privileges" icon={ShieldUser} colorClass="text-amber-500" borderClass="border-amber-500/30 bg-amber-500/10" />
         </div>
 
         {/* Tabs */}
@@ -96,7 +93,7 @@ export default function SecurityGovernancePage() {
                 <ThreatCard 
                     id="TI-001" level="CRITICAL" title="Unidentified Drone – Suspicious Airspace Entry" 
                     desc="RADAR Array 7" tag="TTP: T1566.001" status="Active Intercept" statusColor="text-rose-500" 
-                    borderGlow="border-rose-600/50 shadow-[0_0_15px_rgba(244,63,94,0.15)]" 
+                    borderGlow="border-rose-600/50" 
                 />
                 <ThreatCard 
                     id="TI-003" level="HIGH" title="DDoS Attempt – Inverter API Gateway" 
@@ -106,7 +103,7 @@ export default function SecurityGovernancePage() {
                 <ThreatCard 
                     id="TI-005" level="CRITICAL" title="Overheating Manipulation – PLC Firmware Exploit" 
                     desc="OT Security Node" tag="TTP: T1203" status="Patch Pending" statusColor="text-rose-500" 
-                    borderGlow="border-rose-600/50 shadow-[0_0_15px_rgba(244,63,94,0.15)]" 
+                    borderGlow="border-rose-600/50" 
                 />
 
                 {/* Sub Card - CVE Feed equivalent */}
@@ -139,7 +136,7 @@ export default function SecurityGovernancePage() {
                 <ThreatCard 
                     id="TI-004" level="HIGH" title="Insider Threat – Repeated Substation Manual Override" 
                     desc="Badge Scanner" tag="TTP: T1048" status="Investigating" statusColor="text-amber-500" 
-                    borderGlow="border-amber-600/50 shadow-[0_0_15px_rgba(245,158,11,0.1)]" 
+                    borderGlow="border-amber-600/50" 
                 />
                 <ThreatCard 
                     id="TI-006" level="HIGH" title="Ransomware IOC Match – Edge AI Node" 

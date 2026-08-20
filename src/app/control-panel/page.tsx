@@ -2,8 +2,6 @@
 
 import { Server, Database, Activity, Wifi, Cpu, Plug, Box, RefreshCw, ChevronRight } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, CartesianGrid } from "recharts";
-import TranslateWidget from "@/components/TranslateWidget";
-
 function ServiceCard({ icon: Icon, title, status, ping, colorClass, dotColor }: any) {
     return (
         <div className="widget-hover rounded-lg p-5 flex flex-col justify-between h-32 cursor-pointer group relative">
@@ -63,9 +61,8 @@ export default function ControlPanelPage() {
               <span className="text-slate-400">Control Panel</span>
            </div>
            <div className="flex items-center space-x-3">
-              <TranslateWidget />
-              <span className="flex items-center bg-white/[0.04] px-3 py-1.5 rounded-md border border-white/[0.08] shadow-inner">
-                  <div className="size-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)] animate-pulse mr-2" />
+              <span className="flex items-center bg-white/[0.04] px-3 py-1.5 rounded-md border border-white/[0.08]">
+                  <div className="size-1.5 rounded-full bg-sky-400 mr-2" />
                   <span className="text-slate-300 font-sans font-semibold tracking-wide uppercase">Live</span>
               </span>
            </div>

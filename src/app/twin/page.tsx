@@ -1,9 +1,7 @@
 "use client";
 
-import { Layers, Building2, Zap, BrainCircuit, Activity, Plus, Globe, ChevronRight, AlertTriangle } from "lucide-react";
+import { Layers, Zap, Activity, Plus, Globe, AlertTriangle } from "lucide-react";
 import { useState } from "react";
-import TranslateWidget from "@/components/TranslateWidget";
-
 function MapCanvas() {
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
@@ -84,7 +82,7 @@ function MapCanvas() {
                   style={{ top: node.top, left: node.left }}
                 >
                      {/* Circle dot */}
-                     <div className={`size-3 rounded-full ${node.color} flex items-center justify-center transition-transform duration-300 group-hover:scale-150 shadow-[0_0_15px_rgba(255,255,255,0.3)]`} />
+                     <div className={`size-3 rounded-full ${node.color} flex items-center justify-center transition-transform duration-300 group-hover:scale-150`} />
                      
                      {/* Hover Tooltip (Large) */}
                      <div className="absolute top-6 left-1/2 -translate-x-1/2 bg-[#010a05]/95 backdrop-blur-xl border border-emerald-500/50 rounded-lg p-3 w-40 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-2xl pointer-events-none">
@@ -115,9 +113,8 @@ export default function GeospatialTwinPage() {
               <span className="text-slate-400">Sakaka Digital Twin</span>
            </div>
            <div className="flex items-center space-x-3">
-              <TranslateWidget />
-              <span className="flex items-center bg-white/[0.04] px-3 py-1.5 rounded-md border border-white/[0.08] shadow-inner">
-                  <div className="size-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)] animate-pulse mr-2" />
+              <span className="flex items-center bg-white/[0.04] px-3 py-1.5 rounded-md border border-white/[0.08]">
+                  <div className="size-1.5 rounded-full bg-sky-400 mr-2" />
                   <span className="text-slate-300 font-sans font-semibold tracking-wide uppercase">Live Simulation</span>
               </span>
            </div>
@@ -142,7 +139,7 @@ export default function GeospatialTwinPage() {
                               </div>
                           </div>
                           <div className="flex items-center space-x-1.5 px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08]">
-                             <div className="size-1.5 rounded-full bg-sky-400 animate-pulse shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
+                             <div className="size-1.5 rounded-full bg-sky-400 animate-pulse" />
                              <span className="text-[9px] text-slate-300 font-bold uppercase tracking-widest">Live</span>
                          </div>
                     </div>
@@ -201,24 +198,24 @@ export default function GeospatialTwinPage() {
                         {/* Bars */}
                         <div className="group/bar cursor-crosshair">
                             <div className="flex justify-between items-center text-xs mb-1">
-                                <span className="flex items-center text-slate-300 font-medium"><div className="size-1.5 rounded-full bg-sky-400 mr-2 shadow-[0_0_5px_rgba(56,189,248,0.8)]"/> Low Load</span>
+                                <span className="flex items-center text-slate-300 font-medium"><div className="size-1.5 rounded-full bg-sky-400 mr-2"/> Low Load</span>
                                 <span className="font-mono text-sky-400">30%</span>
                             </div>
-                            <div className="w-full h-1.5 bg-white/[0.02] rounded-full overflow-hidden border border-white/[0.08]"><div className="h-full bg-sky-400 rounded-full group-hover/bar:bg-sky-300 transition-colors shadow-[0_0_10px_rgba(56,189,248,0.5)]" style={{ width: '30%' }}/></div>
+                            <div className="w-full h-1.5 bg-white/[0.02] rounded-full overflow-hidden border border-white/[0.08]"><div className="h-full bg-sky-400 rounded-full group-hover/bar:bg-sky-300 transition-colors" style={{ width: '30%' }}/></div>
                         </div>
                         <div className="group/bar cursor-crosshair">
                             <div className="flex justify-between items-center text-xs mb-1">
-                                <span className="flex items-center text-slate-300 font-medium"><div className="size-1.5 rounded-full bg-amber-500 mr-2 shadow-[0_0_5px_currentColor]"/> Medium Load</span>
+                                <span className="flex items-center text-slate-300 font-medium"><div className="size-1.5 rounded-full bg-amber-500 mr-2"/> Medium Load</span>
                                 <span className="font-mono text-amber-500">50%</span>
                             </div>
-                            <div className="w-full h-1.5 bg-white/[0.02] rounded-full overflow-hidden border border-white/[0.08]"><div className="h-full bg-amber-500 rounded-full group-hover/bar:bg-amber-400 transition-colors shadow-[0_0_10px_currentColor]" style={{ width: '50%' }}/></div>
+                            <div className="w-full h-1.5 bg-white/[0.02] rounded-full overflow-hidden border border-white/[0.08]"><div className="h-full bg-amber-500 rounded-full group-hover/bar:bg-amber-400 transition-colors" style={{ width: '50%' }}/></div>
                         </div>
                         <div className="group/bar cursor-crosshair">
                             <div className="flex justify-between items-center text-xs mb-1">
-                                <span className="flex items-center text-rose-100/80 font-bold"><div className="size-1.5 rounded-full bg-rose-500 mr-2 shadow-[0_0_5px_currentColor]"/> High Load</span>
+                                <span className="flex items-center text-rose-100/80 font-bold"><div className="size-1.5 rounded-full bg-rose-500 mr-2"/> High Load</span>
                                 <span className="font-mono text-rose-500">20%</span>
                             </div>
-                            <div className="w-full h-1.5 bg-white/[0.02] rounded-full overflow-hidden border border-white/[0.08]"><div className="h-full bg-rose-500 rounded-full group-hover/bar:bg-rose-400 transition-colors shadow-[0_0_10px_currentColor]" style={{ width: '20%' }}/></div>
+                            <div className="w-full h-1.5 bg-white/[0.02] rounded-full overflow-hidden border border-white/[0.08]"><div className="h-full bg-rose-500 rounded-full group-hover/bar:bg-rose-400 transition-colors" style={{ width: '20%' }}/></div>
                         </div>
                     </div>
                 </div>
@@ -248,9 +245,9 @@ export default function GeospatialTwinPage() {
 
             {/* Bottom Legend */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center space-x-5 widget-hover px-5 py-3 rounded-xl text-[10px] text-slate-400 font-semibold tracking-wide uppercase">
-                <div className="flex items-center space-x-2"><div className="size-2 rounded-full bg-sky-400 shadow-[0_0_5px_rgba(56,189,248,0.8)]" /> <span>Low Stress</span></div>
-                <div className="flex items-center space-x-2"><div className="size-2 rounded-full bg-amber-500 shadow-[0_0_5px_currentColor]" /> <span>Medium Stress</span></div>
-                <div className="flex items-center space-x-2"><div className="size-2 rounded-full bg-rose-500 shadow-[0_0_8px_currentColor]" /> <span className="text-rose-400 font-bold">High Stress</span></div>
+                <div className="flex items-center space-x-2"><div className="size-2 rounded-full bg-sky-400" /> <span>Low Stress</span></div>
+                <div className="flex items-center space-x-2"><div className="size-2 rounded-full bg-amber-500" /> <span>Medium Stress</span></div>
+                <div className="flex items-center space-x-2"><div className="size-2 rounded-full bg-rose-500" /> <span className="text-rose-400 font-bold">High Stress</span></div>
                 <div className="h-3 w-px bg-white/[0.08] mx-1" />
                 <div className="flex items-center space-x-2"><div className="size-2 rounded-full bg-rose-500 border border-white/50" /> <span>Inverter</span></div>
                 <div className="flex items-center space-x-2"><div className="size-2 rounded-full bg-blue-500 border border-white/50" /> <span>Drone Dock</span></div>

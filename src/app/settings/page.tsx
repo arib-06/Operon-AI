@@ -1,8 +1,6 @@
 "use client";
 
 import { Settings, Sliders, Shield, AlertTriangle, Zap, Server } from "lucide-react";
-import TranslateWidget from "@/components/TranslateWidget";
-
 export default function SettingsPage() {
   return (
     <div className="text-slate-300 font-sans p-4 md:p-6 lg:p-8 max-w-[1600px] mx-auto space-y-8 pb-12">
@@ -13,9 +11,8 @@ export default function SettingsPage() {
                     <h1 className="text-2xl font-bold text-slate-100 tracking-tight">System Configuration</h1>
                 </div>
                 <p className="text-slate-400 text-sm">Tune the parameters of the Autonomous Decision Engine and localized environmental contexts.</p>
-            </div>
-            <TranslateWidget />
-        </header>
+             </div>
+         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 font-sans">
             
@@ -77,11 +74,11 @@ export default function SettingsPage() {
                            <Zap className="size-4 text-slate-400" />
                            <div>
                               <div className="text-sm text-slate-200">Robotic Drone Fleet</div>
-                              <div className="text-[10px] text-slate-500">Cost: SAR 150/dispatch. Fast recovery.</div>
-                           </div>
-                        </div>
-                        <div className="h-5 w-9 rounded-full bg-slate-800 flex items-center px-1 border border-slate-600 cursor-pointer">
-                            <div className="size-3 rounded-full bg-white translate-x-4 shadow-[0_0_5px_rgba(255,255,255,0.8)]" />
+                               <div className="text-[10px] text-slate-500">Cost: SAR 150/dispatch. Fast recovery.</div>
+                            </div>
+                         </div>
+                         <div className="h-5 w-9 rounded-full bg-slate-800 flex items-center px-1 border border-slate-600 cursor-pointer">
+                             <div className="size-3 rounded-full bg-white translate-x-4" />
                         </div>
                     </div>
 
@@ -90,11 +87,11 @@ export default function SettingsPage() {
                            <AlertTriangle className="size-4 text-amber-500" />
                            <div>
                               <div className="text-sm text-slate-200">Heavy Tractor Wash</div>
-                              <div className="text-[10px] text-slate-500">Cost: SAR 500/dispatch. Thorough clean.</div>
-                           </div>
-                        </div>
-                        <div className="h-5 w-9 rounded-full bg-slate-800 flex items-center px-1 border border-slate-600 cursor-pointer">
-                            <div className="size-3 rounded-full bg-white translate-x-4 shadow-[0_0_5px_rgba(255,255,255,0.8)]" />
+                               <div className="text-[10px] text-slate-500">Cost: SAR 500/dispatch. Thorough clean.</div>
+                            </div>
+                         </div>
+                         <div className="h-5 w-9 rounded-full bg-slate-800 flex items-center px-1 border border-slate-600 cursor-pointer">
+                             <div className="size-3 rounded-full bg-white translate-x-4" />
                         </div>
                     </div>
                 </div>
@@ -112,7 +109,7 @@ export default function SettingsPage() {
                         <div className="absolute top-0 right-0 w-16 h-16 bg-white opacity-5 blur-2xl rounded-full" />
                         <div className="text-sm font-bold text-slate-200 mb-1 flex items-center justify-between">
                             NEOM Alpha Array
-                            <div className="size-1.5 rounded-full bg-sky-400 shadow-[0_0_5px_rgba(56,189,248,0.5)]" />
+                            <div className="size-1.5 rounded-full bg-sky-400" />
                         </div>
                         <div className="text-[10px] text-slate-500">Coastal desert simulation. High humidity & operon mixture.</div>
                     </div>
